@@ -42,4 +42,33 @@ public class SetorController {
 		return "setor/lista";
 	}
 
+	@RequestMapping("removeSetor")
+	public String remove(Setor setor) {
+		dao.remove(setor);
+		return "redirect:listaSetores";
+	}
+
+	@RequestMapping("exibeSetor")
+	public String exibe(Long id, Model model) {
+		model.addAttribute("setor", dao.buscaPorId(id));
+		return "setor/exibe";
+	}
+
+	@RequestMapping("editaSetor")
+	public String edita(Long id, Model model) {
+		model.addAttribute("setor", dao.buscaPorId(id));
+		return "setor/edita";
+	}
+
+	@RequestMapping("alteraSetor")
+	public String altera(@Valid Setor setor, BindingResult result) {
+
+		if (result.hasErrors()) {
+			return "redirect:editaSetor?id=" + setor.getId();
+		}
+
+		dao.altera(setor);
+		return "redirect:listaSetores";
+	}
+
 }
