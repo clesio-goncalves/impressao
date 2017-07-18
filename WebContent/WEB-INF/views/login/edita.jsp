@@ -1,17 +1,16 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page language="java" contentType="text/html"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<title>Editar Usuário</title>
+<title>Editar UsuÃ¡rio</title>
 
 <c:import url="../componentes/cabecalho.jsp" />
 
 <div class="jumbotron">
 	<div class="container">
-		<h1>Editar Usuário</h1>
-		<p>Preencha o formulário abaixo para realizar a alteração.</p>
+		<h1>Editar UsuÃ¡rio</h1>
+		<p>Preencha o formulÃ¡rio abaixo para realizar a alteraÃ§Ã£o.</p>
 	</div>
 </div>
 <div class="container">
@@ -22,7 +21,7 @@
 
 		<!-- USUARIO -->
 		<div class="form-group">
-			<label for="usuario">Usuário*</label> <input type="text"
+			<label for="usuario">UsuÃ¡rio*</label> <input type="text"
 				class="form-control" name="usuario" autofocus MAXLENGTH="20"
 				required value="${login.usuario}">
 		</div>
@@ -74,8 +73,8 @@
 			</div>
 		</div>
 
-		<!-- OBTIGATÓRIO -->
-		<label for="obrigatorio">(*) Campos obrigatórios</label>
+		<!-- OBTIGATÃ“RIO -->
+		<label for="obrigatorio">(*) Campos obrigatÃ³rios</label>
 		<div>
 			<a href="listaUsuarios" class="btn btn-default btn-lg"> <span
 				class="glyphicon glyphicon-remove"></span> Cancelar

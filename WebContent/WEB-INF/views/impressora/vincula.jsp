@@ -1,6 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page language="java" contentType="text/html"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,8 +38,8 @@
 			</select>
 		</div>
 
-		<!-- OBTIGATÓRIO -->
-		<label for="obrigatorio">(*) Campo obrigatório</label>
+		<!-- OBTIGATÃ“RIO -->
+		<label for="obrigatorio">(*) Campo obrigatÃ³rio</label>
 		<div>
 			<a href="listaImpressoras" class="btn btn-default btn-lg"> <span
 				class="glyphicon glyphicon-remove"></span> Cancelar

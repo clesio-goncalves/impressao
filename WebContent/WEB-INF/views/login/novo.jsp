@@ -1,18 +1,17 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page language="java" contentType="text/html"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<title>Cadastrar Usuário</title>
+<title>Cadastrar UsuÃ¡rio</title>
 
 <c:import url="../componentes/cabecalho.jsp" />
 
 <div class="jumbotron">
 	<div class="container">
-		<h1>Cadastrar Usuário</h1>
-		<p>Preencha o formulário abaixo para realizar o cadastro do
-			usuário para realiza login no sistema.</p>
+		<h1>Cadastrar UsuÃ¡rio</h1>
+		<p>Preencha o formulÃ¡rio abaixo para realizar o cadastro do
+			usuÃ¡rio para realiza login no sistema.</p>
 	</div>
 </div>
 <div class="container">
@@ -20,7 +19,7 @@
 
 		<!-- USUARIO -->
 		<div class="form-group">
-			<label for="usuario">Usuário*</label> <input type="text"
+			<label for="usuario">UsuÃ¡rio*</label> <input type="text"
 				class="form-control" name="usuario" autofocus MAXLENGTH="20"
 				required>
 		</div>
@@ -70,8 +69,8 @@
 			</div>
 		</div>
 
-		<!-- OBTIGATÓRIO -->
-		<label for="obrigatorio">(*) Campos obrigatórios</label>
+		<!-- OBTIGATÃ“RIO -->
+		<label for="obrigatorio">(*) Campos obrigatÃ³rios</label>
 		<div>
 			<button type="reset" class="btn btn-default btn-lg">
 				<span class="glyphicon glyphicon-trash"></span> Limpar

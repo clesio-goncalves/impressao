@@ -64,6 +64,20 @@ public class ImpressaoController {
 		// Impressao
 		impressao = new Impressao();
 
+		// Data inicial
+		// Se a data inicial estiver sido informada
+		if (!request.getParameter("data_inicial").equals("")) {
+			SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
+			Calendar data_inicial = Calendar.getInstance();
+			try {
+				Date data = fmt.parse(request.getParameter("data_inicial"));
+				data_inicial.setTime(data);
+			} catch (java.text.ParseException e) {
+				e.printStackTrace();
+			}
+			impressao.setData(data_inicial);
+		}
+
 		// Impressora
 		// Se a impressora for diferente de qualquer
 		if (!request.getParameter("nome_impressora").equals("Qualquer")) {
@@ -71,7 +85,16 @@ public class ImpressaoController {
 		}
 
 		// Estação
-		impressao.getEstacao().setNome(request.getParameter("nome_estacao"));
+		// Se for informada a estação
+		if (!request.getParameter("nome_estacao").equals("")) {
+			impressao.getEstacao().setNome(request.getParameter("nome_estacao"));
+		}
+
+		// Usuário
+		// Se for informado o usuário
+		if (!request.getParameter("nome_usuario").equals("")) {
+			impressao.getUsuario().setNome(request.getParameter("nome_usuario"));
+		}
 
 		model.addAttribute("impressoes", dao.buscaImpressao(impressao));
 		model.addAttribute("impressoras", dao_impressora.lista());

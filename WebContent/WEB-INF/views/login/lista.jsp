@@ -1,10 +1,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page language="java" contentType="text/html"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<title>Listar Usuários</title>
+<title>Listar UsuÃ¡rios</title>
 <link rel="stylesheet" type="text/css"
 	href="resources/css/jquery.dataTables.css">
 
@@ -12,7 +11,7 @@
 
 <div class="container">
 	<div class="panel panel-default">
-		<div class="panel-heading">Listagem de Usuários</div>
+		<div class="panel-heading">Listagem de UsuÃ¡rios</div>
 
 		<!-- Table -->
 		<div class="panel-body">
@@ -21,11 +20,11 @@
 					<thead>
 						<tr>
 							<th>ID</th>
-							<th>Usuário</th>
+							<th>UsuÃ¡rio</th>
 							<th>Ativo</th>
 							<th>Perfil</th>
 							<th>Setor</th>
-							<th>Ações</th>
+							<th>AÃ§Ãµes</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -40,20 +39,20 @@
 									<td>Sim</td>
 								</c:if>
 								<c:if test="${login.ativo eq false}">
-									<td>Não</td>
+									<td>NÃ£o</td>
 								</c:if>
 
 								<td>${login.perfil}</td>
 								<td>${login.setor.nome}</td>
 
-								<!-- AÇÕES -->
+								<!-- AÃ‡Ã•ES -->
 								<td>
 									<!-- Exibir --> <a href="exibeUsuario?id=${login.id}"
 									class="btn btn-success btn-xs"><span
 										class="glyphicon glyphicon-zoom-in"></span> Exibir</a> <!-- Editar -->
 									<a href="editaUsuario?id=${login.id}"
 									class="btn btn-info btn-xs"><span
-										class="glyphicon glyphicon-edit"></span> Editar </a> <!-- Botão exluir -->
+										class="glyphicon glyphicon-edit"></span> Editar </a> <!-- BotÃ£o exluir -->
 									<button class="btn btn-danger btn-xs" data-toggle="modal"
 										data-target="#${login.id}">
 										<span class="glyphicon glyphicon-trash"></span> Excluir
@@ -68,11 +67,11 @@
 														<span aria-hidden="true">&times;</span><span
 															class="sr-only">Fechar</span>
 													</button>
-													<h4 class="modal-title" id="myModalLabel">Exclusão do
-														usuário</h4>
+													<h4 class="modal-title" id="myModalLabel">ExclusÃ£o do
+														usuÃ¡rio</h4>
 												</div>
 												<div class="modal-body">Deseja realmente excluir o
-													usuário (${login.id}) -> ${login.usuario}?</div>
+													usuÃ¡rio (${login.id}) -> ${login.usuario}?</div>
 												<div class="modal-footer">
 													<button type="button" class="btn btn-default"
 														data-dismiss="modal">

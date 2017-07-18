@@ -1,13 +1,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ page language="java" contentType="text/html"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<title>RelatÛrio de Impress„o</title>
+<title>Relat√≥rio de Impress√£o</title>
 <link rel="stylesheet" type="text/css"
 	href="resources/css/jquery.dataTables.css">
+<link rel="stylesheet" type="text/css"
+	href="resources/css/jquery-ui.css">
 
 <c:import url="../componentes/cabecalho.jsp" />
 
@@ -24,31 +25,29 @@
 					<div class="row">
 						<!-- DATA INICIAL -->
 						<div class="form-group col-sm-6">
-							<label for="data_inicial">Data inicial</label> <input type="date"
-								class="form-control" name="data_inicial" id="data_inicial"
-								data-mask="99/99/9999">
+							<label for="data_inicial">Data inicial</label> <input type="text"
+								class="form-control data" name="data_inicial" id="data_inicial">
 						</div>
 
 						<!-- DATA FINAL -->
 						<div class="form-group col-sm-6">
-							<label for="data_final">Data final</label> <input type="date"
-								class="form-control" name="data_final" id="data_final"
-								data-mask="99/99/9999">
+							<label for="data_final">Data final</label> <input type="text"
+								class="form-control data" name="data_final" id="data_final">
 						</div>
 					</div>
 
 					<div class="row">
 
-						<!-- MÕNIMO DE IMPRESS’ES -->
+						<!-- M√çNIMO DE IMPRESS√ïES -->
 						<div class="form-group col-sm-4">
-							<label for="qnt_impressoes">MÌnimo de Impressıes</label> <input
+							<label for="qnt_impressoes">M√≠nimo de Impress√µes</label> <input
 								type="number" class="form-control" name="qnt_impressoes"
 								id="qnt_impressoes" onkeypress='return SomenteNumero(event)'>
 						</div>
 
-						<!-- USU¡RIO -->
+						<!-- USU√ÅRIO -->
 						<div class="form-group col-sm-8">
-							<label for="usuario">Usu·rio</label> <input type="text"
+							<label for="usuario">Usu√°rio</label> <input type="text"
 								class="form-control" name="usuario" id="usuario">
 						</div>
 					</div>
@@ -72,9 +71,9 @@
 							</select>
 						</div>
 
-						<!-- ESTA«√O -->
+						<!-- ESTA√á√ÉO -->
 						<div class="form-group col-sm-6">
-							<label for="estacao">EstaÁ„o</label> <input type="text"
+							<label for="estacao">Esta√ß√£o</label> <input type="text"
 								class="form-control" name="estacao" id="estacao">
 						</div>
 					</div>
@@ -101,7 +100,7 @@
 	<div class="row">
 		<div class="panel panel-default">
 
-			<div class="panel-heading">RelatÛrio de Impress„o</div>
+			<div class="panel-heading">Relat√≥rio de Impress√£o</div>
 
 			<!-- Table -->
 			<div class="panel-body">
@@ -113,6 +112,7 @@
 	</div>
 </div>
 
+<script type="text/javascript" src="resources/js/jquery-ui.js"></script>
 <script type="text/javascript" src="resources/js/jquery.dataTables.js"></script>
 <script type="text/javascript" src="resources/js/inputmask-plugin.js"></script>
 <script type="text/javascript" src="resources/js/SomenteNumero.js"></script>

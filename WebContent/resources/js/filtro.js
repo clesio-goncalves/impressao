@@ -1,4 +1,4 @@
-//Data table
+// Data table
 $(document).ready(function() {
 	$('#table_id').DataTable({
 		"language" : {
@@ -15,8 +15,12 @@ $(document).ready(function() {
 			url : "filtrarImpressoes",
 			cache : false,
 			data : {
+				data_inicial : $("#data_inicial").val(),
+				data_final : $("#data_final").val(),
 				nome_impressora : $("#impressora :selected").text(),
-				nome_estacao : $("#estacao").val()
+				nome_estacao : $("#estacao").val(),
+				qnt_impressoes : $("#qnt_impressoes").val(),
+				nome_usuario : $("#usuario").val()
 			},
 			success : function(response) {
 				$('#tabela').html(response);
@@ -37,3 +41,22 @@ function atualiza() {
 		}
 	});
 }
+
+$(function() {
+	$(".data").datepicker(
+			{
+				dateFormat : 'dd/mm/yy',
+				dayNames : [ 'Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta',
+						'Sexta', 'Sábado' ],
+				dayNamesMin : [ 'D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D' ],
+				dayNamesShort : [ 'Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex',
+						'Sáb', 'Dom' ],
+				monthNames : [ 'Janeiro', 'Fevereiro', 'Março', 'Abril',
+						'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro',
+						'Outubro', 'Novembro', 'Dezembro' ],
+				monthNamesShort : [ 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun',
+						'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez' ],
+				nextText : 'Próximo',
+				prevText : 'Anterior'
+			});
+});

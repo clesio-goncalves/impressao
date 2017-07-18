@@ -1,6 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page language="java" contentType="text/html"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,7 +23,7 @@
 					<form role="form" action="efetuaLogin" method="POST">
 
 						<div class="form-group">
-							<label for="usuario">Usu·rio</label><input class="form-control"
+							<label for="usuario">Usu√°rio</label><input class="form-control"
 								name="usuario" MAXLENGTH="50" type="text" required autofocus>
 						</div>
 						<div class="form-group">

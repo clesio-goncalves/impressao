@@ -1,6 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page language="java" contentType="text/html"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -49,7 +48,7 @@
 					<button type="button" class="close" data-dismiss="modal">
 						<span aria-hidden="true">&times;</span><span class="sr-only">Fechar</span>
 					</button>
-					<h4 class="modal-title" id="myModalLabel">Exclus„o do setor</h4>
+					<h4 class="modal-title" id="myModalLabel">Exclus√£o do setor</h4>
 				</div>
 				<div class="modal-body">Deseja realmente excluir o setor
 					(${setor.id}) -> ${setor.nome}?</div>

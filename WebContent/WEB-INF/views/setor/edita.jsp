@@ -1,6 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page language="java" contentType="text/html"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +10,7 @@
 <div class="jumbotron">
 	<div class="container">
 		<h1>Editar Setor</h1>
-		<p>Preencha o formul·rio abaixo para realizar a alteraÁ„o do
+		<p>Preencha o formul√°rio abaixo para realizar a altera√ß√£o do
 			setor.</p>
 	</div>
 </div>
@@ -28,8 +27,8 @@
 				value="${setor.nome}">
 		</div>
 
-		<!-- OBTIGAT”RIO -->
-		<label for="obrigatorio">(*) Campo obrigatÛrio</label>
+		<!-- OBTIGAT√ìRIO -->
+		<label for="obrigatorio">(*) Campo obrigat√≥rio</label>
 		<div>
 			<a href="listaSetores" class="btn btn-default btn-lg"> <span
 				class="glyphicon glyphicon-remove"></span> Cancelar

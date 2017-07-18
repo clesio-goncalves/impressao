@@ -7,7 +7,7 @@
 	<display-name>impressao</display-name>
 
 	<welcome-file-list>
-		<welcome-file>/login</welcome-file>
+		<welcome-file>login/login</welcome-file>
 	</welcome-file-list>
 
 	<!-- Servlet do Spring MVC -->

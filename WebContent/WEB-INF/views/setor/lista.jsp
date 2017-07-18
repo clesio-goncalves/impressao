@@ -1,6 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page language="java" contentType="text/html"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,7 +21,7 @@
 						<tr>
 							<th>ID</th>
 							<th>Nome</th>
-							<th>Ações</th>
+							<th>AÃ§Ãµes</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -32,13 +31,13 @@
 								<td>${setor.id}</td>
 								<td>${setor.nome}</td>
 
-								<!-- AÇÕES -->
+								<!-- AÃ‡Ã•ES -->
 								<td>
 									<!-- Exibir --> <a href="exibeSetor?id=${setor.id}"
 									class="btn btn-success btn-xs"><span
 										class="glyphicon glyphicon-zoom-in"></span> Exibir</a> <!-- Editar -->
 									<a href="editaSetor?id=${setor.id}" class="btn btn-info btn-xs"><span
-										class="glyphicon glyphicon-edit"></span> Editar </a> <!-- Botão exluir -->
+										class="glyphicon glyphicon-edit"></span> Editar </a> <!-- BotÃ£o exluir -->
 									<button class="btn btn-danger btn-xs" data-toggle="modal"
 										data-target="#${setor.id}">
 										<span class="glyphicon glyphicon-trash"></span> Excluir
@@ -53,7 +52,7 @@
 														<span aria-hidden="true">&times;</span><span
 															class="sr-only">Fechar</span>
 													</button>
-													<h4 class="modal-title" id="myModalLabel">Exclusão do
+													<h4 class="modal-title" id="myModalLabel">ExclusÃ£o do
 														setor</h4>
 												</div>
 												<div class="modal-body">Deseja realmente excluir o

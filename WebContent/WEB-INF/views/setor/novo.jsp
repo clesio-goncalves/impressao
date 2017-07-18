@@ -1,6 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page language="java" contentType="text/html"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +10,7 @@
 <div class="jumbotron">
 	<div class="container">
 		<h1>Cadastrar Setor</h1>
-		<p>Preencha o formul·rio abaixo para realizar o cadastro do setor.</p>
+		<p>Preencha o formul√°rio abaixo para realizar o cadastro do setor.</p>
 	</div>
 </div>
 <div class="container">
@@ -23,8 +22,8 @@
 				class="form-control" name="nome" autofocus MAXLENGTH="20" required>
 		</div>
 
-		<!-- OBTIGAT”RIO -->
-		<label for="obrigatorio">(*) Campo obrigatÛrio</label>
+		<!-- OBTIGAT√ìRIO -->
+		<label for="obrigatorio">(*) Campo obrigat√≥rio</label>
 		<div>
 			<button type="reset" class="btn btn-default btn-lg">
 				<span class="glyphicon glyphicon-trash"></span> Limpar

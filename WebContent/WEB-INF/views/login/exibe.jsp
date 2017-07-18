@@ -1,15 +1,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page language="java" contentType="text/html"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<title>Exibe os dados do usuário</title>
+<title>Exibe os dados do usuÃ¡rio</title>
 <c:import url="../componentes/cabecalho.jsp" />
 
 <div class="container">
 	<div class="panel panel-default">
-		<div class="panel-heading">Exibe os dados do usuário</div>
+		<div class="panel-heading">Exibe os dados do usuÃ¡rio</div>
 		<!-- Table -->
 		<div class="panel-body">
 			<div class="table-responsive">
@@ -20,7 +19,7 @@
 					</tr>
 
 					<tr>
-						<th>Usuário</th>
+						<th>UsuÃ¡rio</th>
 						<td>${login.usuario}</td>
 					</tr>
 
@@ -30,7 +29,7 @@
 							<td>Sim</td>
 						</c:if>
 						<c:if test="${login.ativo eq false}">
-							<td>Não</td>
+							<td>NÃ£o</td>
 						</c:if>
 					</tr>
 					<tr>
@@ -67,9 +66,9 @@
 					<button type="button" class="close" data-dismiss="modal">
 						<span aria-hidden="true">&times;</span><span class="sr-only">Fechar</span>
 					</button>
-					<h4 class="modal-title" id="myModalLabel">Exclusão do usuário</h4>
+					<h4 class="modal-title" id="myModalLabel">ExclusÃ£o do usuÃ¡rio</h4>
 				</div>
-				<div class="modal-body">Deseja realmente excluir o usuário
+				<div class="modal-body">Deseja realmente excluir o usuÃ¡rio
 					(${login.id}) -> ${login.usuario}?</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">

@@ -1,6 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page language="java" contentType="text/html"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,8 +22,8 @@
 							<th>ID</th>
 							<th>Impressora</th>
 							<th>Setor</th>
-							<th>Total Impressões</th>
-							<th>Ações</th>
+							<th>Total ImpressÃµes</th>
+							<th>AÃ§Ãµes</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -36,7 +35,7 @@
 
 								<!-- Setor -->
 								<c:if test="${impressora.setor == null}">
-									<td>Não informado</td>
+									<td>NÃ£o informado</td>
 								</c:if>
 								<c:if test="${impressora.setor != null}">
 									<td>${impressora.setor.nome}</td>
@@ -44,14 +43,14 @@
 
 								<td>${impressora.total_impressao}</td>
 
-								<!-- AÇÕES -->
+								<!-- AÃ‡Ã•ES -->
 								<td>
 									<!-- Vincular --> <a href="editaImpressora?id=${impressora.id}"
 									class="btn btn-info btn-xs"><span
-										class="glyphicon glyphicon-link"></span> Vincular </a> <!-- Relatório -->
+										class="glyphicon glyphicon-link"></span> Vincular </a> <!-- RelatÃ³rio -->
 									<a href="listaImpressoes?id=${impressora.id}"
 									class="btn btn-success btn-xs"><span
-										class="glyphicon glyphicon-print"></span> Relatório</a>
+										class="glyphicon glyphicon-print"></span> RelatÃ³rio</a>
 								</td>
 							</tr>
 						</c:forEach>
