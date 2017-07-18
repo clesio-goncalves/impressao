@@ -172,7 +172,7 @@ public class Impressao {
 	}
 
 	public List<String> importarDados() {
-		final String local = "logs/csv/monthly/papercut-print-log-2016-06.csv";
+		final String local = "/eclipse-workspace/impressao/logs/csv/monthly/papercut-print-log-2016-06.csv";
 
 		Path caminho = Paths.get(System.getProperty("user.home"), local);
 

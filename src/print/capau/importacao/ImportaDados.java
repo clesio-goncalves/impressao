@@ -12,7 +12,7 @@ public class ImportaDados {
 
 	public static void main(String[] args) {
 
-		final String local = "eclipse-workspace/impressao/logs/csv/monthly/papercut-print-log-2016-06.csv";
+		final String local = "/eclipse-workspace/impressao/logs/csv/monthly/papercut-print-log-2016-06.csv";
 
 		Path caminho = Paths.get(System.getProperty("user.home"), local);
 
