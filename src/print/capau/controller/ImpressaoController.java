@@ -15,7 +15,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import print.capau.dao.EstacaoDao;
 import print.capau.dao.ImpressaoDao;
@@ -37,6 +36,11 @@ public class ImpressaoController {
 	private Usuario usuario;
 	private boolean boleano;
 	private Long estacao_id;
+	private SimpleDateFormat fmt_filtro = new SimpleDateFormat("dd/MM/yyyy");
+	private SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	private Calendar c;
+	private Date data;
+	private String data_inicial, data_final;
 
 	@Autowired
 	private ImpressaoDao dao;
@@ -65,18 +69,42 @@ public class ImpressaoController {
 		impressao = new Impressao();
 
 		// Data inicial
-		// Se a data inicial estiver sido informada
-		if (!request.getParameter("data_inicial").equals("")) {
-			SimpleDateFormat fmt = new SimpleDateFormat("dd/MM/yyyy");
-			Calendar data_inicial = Calendar.getInstance();
-			try {
-				Date data = fmt.parse(request.getParameter("data_inicial"));
-				data_inicial.setTime(data);
-			} catch (java.text.ParseException e) {
-				e.printStackTrace();
-			}
-			impressao.setData(data_inicial);
+		data_inicial = request.getParameter("data_inicial");
+
+		// Se a data inicial não estiver sido informada, será atribuido 01/01/2000
+		if (data_inicial.equals("")) {
+			data_inicial = "01/01/2000";
 		}
+
+		// Converte a data inicial
+		c = Calendar.getInstance();
+		try {
+			data = fmt_filtro.parse(data_inicial);
+			c.setTime(data);
+		} catch (java.text.ParseException e) {
+			e.printStackTrace();
+		}
+		impressao.setData_inicial(c);
+
+		// Data final
+		data_final = request.getParameter("data_final");
+
+		// Se a data final não estiver sido informada, sera atribuido a data atual do
+		// servidor
+		if (data_final.equals("")) {
+			Calendar calendar = Calendar.getInstance();
+			data_final = impressao.formataData(calendar, "dd/MM/yyyy");
+		}
+
+		// Converte a data final
+		c = Calendar.getInstance();
+		try {
+			Date data = fmt_filtro.parse(data_final);
+			c.setTime(data);
+		} catch (java.text.ParseException e) {
+			e.printStackTrace();
+		}
+		impressao.setData_final(c);
 
 		// Impressora
 		// Se a impressora for diferente de qualquer
@@ -88,6 +116,12 @@ public class ImpressaoController {
 		// Se for informada a estação
 		if (!request.getParameter("nome_estacao").equals("")) {
 			impressao.getEstacao().setNome(request.getParameter("nome_estacao"));
+		}
+
+		// Minimo de Impressões
+		// Se for informada a quantidade minima de impressoes
+		if (!request.getParameter("qnt_impressoes").equals("")) {
+			impressao.setQnt_impressoes(Integer.parseInt(request.getParameter("qnt_impressoes")));
 		}
 
 		// Usuário
@@ -152,8 +186,7 @@ public class ImpressaoController {
 			impressao.setEscala_cinza(boleano);
 
 			// Data
-			SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			Calendar c = Calendar.getInstance();
+			c = Calendar.getInstance();
 			try {
 				Date data = fmt.parse(dados[0]);
 				c.setTime(data);

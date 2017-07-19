@@ -7,8 +7,6 @@
 <title>Relatório de Impressão</title>
 <link rel="stylesheet" type="text/css"
 	href="resources/css/jquery.dataTables.css">
-<link rel="stylesheet" type="text/css"
-	href="resources/css/jquery-ui.css">
 
 <c:import url="../componentes/cabecalho.jsp" />
 
@@ -26,13 +24,15 @@
 						<!-- DATA INICIAL -->
 						<div class="form-group col-sm-6">
 							<label for="data_inicial">Data inicial</label> <input type="text"
-								class="form-control data" name="data_inicial" id="data_inicial">
+								class="form-control data" name="data_inicial" id="data_inicial"
+								data-mask="99/99/9999">
 						</div>
 
 						<!-- DATA FINAL -->
 						<div class="form-group col-sm-6">
-							<label for="data_final">Data final</label> <input type="text"
-								class="form-control data" name="data_final" id="data_final">
+							<label for="data_final">Data final (Não inclusa na
+								listagem)</label> <input type="text" class="form-control data"
+								name="data_final" id="data_final" data-mask="99/99/9999">
 						</div>
 					</div>
 

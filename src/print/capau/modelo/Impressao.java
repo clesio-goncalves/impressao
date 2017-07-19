@@ -5,7 +5,9 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -169,6 +171,12 @@ public class Impressao {
 
 	public void setQnt_impressoes(Integer qnt_impressoes) {
 		this.qnt_impressoes = qnt_impressoes;
+	}
+
+	public String formataData(Calendar calendar, String formato) {
+		SimpleDateFormat fmt = new SimpleDateFormat(formato);
+		Date data = calendar.getTime();
+		return fmt.format(data);
 	}
 
 	public List<String> importarDados() {

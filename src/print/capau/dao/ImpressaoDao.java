@@ -12,8 +12,7 @@ import print.capau.modelo.Impressao;
 @Repository
 public class ImpressaoDao {
 
-	private String sql;
-	private boolean where;
+	private String sql, data_inicial, data_final;
 
 	@PersistenceContext
 	private EntityManager manager;
@@ -27,62 +26,33 @@ public class ImpressaoDao {
 	}
 
 	public List<Impressao> buscaImpressao(Impressao impressao) {
-		// return manager
-		// .createQuery(
-		// "select i from Impressao as i where i.impressora.nome = :nomeImpressora and
-		// i.estacao.nome = :nomeEstacao",
-		// Impressao.class)
-		// .setParameter("nomeImpressora", impressao.getImpressora().getNome())
-		// .setParameter("nomeEstacao",
-		// impressao.getEstacao().getNome()).getResultList();
 
 		sql = "select i from Impressao as i";
-		where = false;
 
-		// Data inicial
-		if (impressao.getData() != null) {
-			if (where == false) {
-				sql = sql + " where";
-				where = true;
-			}
+		// Data inicial e data final
+		data_inicial = impressao.formataData(impressao.getData_inicial(), "yyyy-MM-dd");
+		data_final = impressao.formataData(impressao.getData_final(), "yyyy-MM-dd");
 
-			sql = sql + " i.data = '" + impressao.getData() + "'";
-		}
+		sql = sql + " where i.data between '" + data_inicial + "' and '" + data_final + "'";
 
 		// Impressora
 		if (impressao.getImpressora().getNome() != null) {
-			if (where == false) {
-				sql = sql + " where";
-				where = true;
-			} else {
-				sql = sql + " and";
-			}
-
-			sql = sql + " i.impressora.nome = '" + impressao.getImpressora().getNome() + "'";
+			sql = sql + " and i.impressora.nome = '" + impressao.getImpressora().getNome() + "'";
 		}
 
 		// Estação
 		if (impressao.getEstacao().getNome() != null) {
-			if (where == false) {
-				sql = sql + " where";
-				where = true;
-			} else {
-				sql = sql + " and";
-			}
-
-			sql = sql + " i.estacao.nome = '" + impressao.getEstacao().getNome() + "'";
+			sql = sql + " and i.estacao.nome = '" + impressao.getEstacao().getNome() + "'";
 		}
 
 		// Usuário
 		if (impressao.getUsuario().getNome() != null) {
-			if (where == false) {
-				sql = sql + " where";
-				where = true;
-			} else {
-				sql = sql + " and";
-			}
+			sql = sql + " and i.usuario.nome = '" + impressao.getUsuario().getNome() + "'";
+		}
 
-			sql = sql + " i.usuario.nome = '" + impressao.getUsuario().getNome() + "'";
+		// Quantidade Minima de Impressoes
+		if (impressao.getQnt_impressoes() != null) {
+			sql = sql + " and (i.qnt_copias * i.qnt_paginas) >= " + impressao.getQnt_impressoes();
 		}
 
 		System.out.println("-----------------------------------------------------");
