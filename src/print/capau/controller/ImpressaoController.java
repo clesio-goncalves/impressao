@@ -1,9 +1,7 @@
 package print.capau.controller;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -36,10 +34,6 @@ public class ImpressaoController {
 	private Usuario usuario;
 	private boolean boleano;
 	private Long estacao_id;
-	private SimpleDateFormat fmt_filtro = new SimpleDateFormat("dd/MM/yyyy");
-	private SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	private Calendar c;
-	private Date data;
 	private String data_inicial, data_final;
 
 	@Autowired
@@ -58,6 +52,7 @@ public class ImpressaoController {
 	public String relatorio(Model model) {
 		// atualizar();
 		model.addAttribute("impressoes", dao.lista());
+		model.addAttribute("total_impressao", dao.qntImpressao());
 		model.addAttribute("impressoras", dao_impressora.lista());
 		return "impressao/lista";
 	}
@@ -77,14 +72,7 @@ public class ImpressaoController {
 		}
 
 		// Converte a data inicial
-		c = Calendar.getInstance();
-		try {
-			data = fmt_filtro.parse(data_inicial);
-			c.setTime(data);
-		} catch (java.text.ParseException e) {
-			e.printStackTrace();
-		}
-		impressao.setData_inicial(c);
+		impressao.setData_inicial(impressao.converteStringParaCalendar(data_inicial, "dd/MM/yyyy"));
 
 		// Data final
 		data_final = request.getParameter("data_final");
@@ -97,14 +85,7 @@ public class ImpressaoController {
 		}
 
 		// Converte a data final
-		c = Calendar.getInstance();
-		try {
-			Date data = fmt_filtro.parse(data_final);
-			c.setTime(data);
-		} catch (java.text.ParseException e) {
-			e.printStackTrace();
-		}
-		impressao.setData_final(c);
+		impressao.setData_final(impressao.converteStringParaCalendar(data_final, "dd/MM/yyyy"));
 
 		// Impressora
 		// Se a impressora for diferente de qualquer
@@ -131,6 +112,7 @@ public class ImpressaoController {
 		}
 
 		model.addAttribute("impressoes", dao.buscaImpressao(impressao));
+		model.addAttribute("total_impressao", dao.qntImpressao());
 		model.addAttribute("impressoras", dao_impressora.lista());
 		return "impressao/tabela";
 	}
@@ -186,14 +168,7 @@ public class ImpressaoController {
 			impressao.setEscala_cinza(boleano);
 
 			// Data
-			c = Calendar.getInstance();
-			try {
-				Date data = fmt.parse(dados[0]);
-				c.setTime(data);
-			} catch (java.text.ParseException e) {
-				e.printStackTrace();
-			}
-			impressao.setData(c);
+			impressao.setData(impressao.converteStringParaCalendar(dados[0], "yyyy-MM-dd HH:mm:ss"));
 
 			// Adiciona a impressora
 			dao.adiciona(impressao);

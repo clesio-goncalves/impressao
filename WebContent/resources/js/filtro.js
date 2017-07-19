@@ -1,11 +1,15 @@
-// Data table
-$(document).ready(function() {
-	$('#table_id').DataTable({
-		"language" : {
-			"url" : "resources/idioma/Portuguese-Brasil.json"
-		}
-	});
-});
+// Reset
+$(document).ready(
+		function() {
+			$('#limpar').click(
+					function() {
+						$("#data_inicial").val(""), $("#data_final").val(""),
+								$("#impressora :selected").text("Qualquer"), $(
+										"#estacao").val(""), $(
+										"#qnt_impressoes").val(""), $(
+										"#usuario").val("")
+					});
+		});
 
 // Filtro
 $(document).ready(function() {

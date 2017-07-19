@@ -97,16 +97,7 @@
 		class="glyphicon glyphicon-plus"></span> Cadastrar</a>
 </div>
 
-<script src="resources/js/jquery.dataTables.js"></script>
-
-<script>
-	$(document).ready(function() {
-		$('#table_id').DataTable({
-			"language" : {
-				"url" : "resources/idioma/Portuguese-Brasil.json"
-			}
-		});
-	});
-</script>
+<script type="text/javascript" src="resources/js/jquery.dataTables.js"></script>
+<script type="text/javascript" src="resources/js/data_table.js"></script>
 
 <c:import url="../componentes/rodape.jsp" />

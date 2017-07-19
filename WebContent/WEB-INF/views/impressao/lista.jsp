@@ -10,8 +10,6 @@
 
 <c:import url="../componentes/cabecalho.jsp" />
 
-<!-- FILTROS -->
-
 <div class="container">
 	<div class="row">
 		<div class="panel panel-success">
@@ -52,7 +50,6 @@
 						</div>
 					</div>
 
-
 				</fieldset>
 
 				<fieldset class="col-md-6">
@@ -79,10 +76,16 @@
 					</div>
 
 					<div class="row">
-
-						<div class="form-group col-sm-12" align="right">
+						<div class="form-group col-sm-6">
 							<br />
-							<button type="reset" class="btn btn-default">
+							<div class="well">
+								<b>Total de Impressões: ${total_impressao}</b>
+							</div>
+						</div>
+
+						<div class="form-group col-sm-6" align="right">
+							<br />
+							<button type="reset" class="btn btn-default" id="limpar">
 								<span class="glyphicon glyphicon-trash"></span> Limpar
 							</button>
 							<button type="button" class="btn btn-success" id="filtro">
@@ -116,6 +119,7 @@
 <script type="text/javascript" src="resources/js/jquery.dataTables.js"></script>
 <script type="text/javascript" src="resources/js/inputmask-plugin.js"></script>
 <script type="text/javascript" src="resources/js/SomenteNumero.js"></script>
+<script type="text/javascript" src="resources/js/data_table.js"></script>
 <script type="text/javascript" src="resources/js/filtro.js"></script>
 
 <c:import url="../componentes/rodape.jsp" />

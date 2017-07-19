@@ -179,6 +179,18 @@ public class Impressao {
 		return fmt.format(data);
 	}
 
+	public Calendar converteStringParaCalendar(String string, String formato) {
+		SimpleDateFormat fmt = new SimpleDateFormat(formato);
+		Calendar calendar = Calendar.getInstance();
+		try {
+			Date data = fmt.parse(string);
+			calendar.setTime(data);
+		} catch (java.text.ParseException e) {
+			e.printStackTrace();
+		}
+		return calendar;
+	}
+
 	public List<String> importarDados() {
 		final String local = "/eclipse-workspace/impressao/logs/csv/monthly/papercut-print-log-2016-06.csv";
 
