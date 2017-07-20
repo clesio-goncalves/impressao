@@ -102,6 +102,9 @@ public class Impressao {
 	}
 
 	public String getDocumento() {
+		if (documento.length() > 35) {
+			return documento.substring(0, 35);
+		}
 		return documento;
 	}
 
@@ -192,7 +195,7 @@ public class Impressao {
 	}
 
 	public List<String> importarDados() {
-		final String local = "/eclipse-workspace/impressao/logs/csv/monthly/papercut-print-log-2016-06.csv";
+		final String local = "eclipse-workspace/impressao/logs/csv/papercut-print-log-all-time.csv";
 
 		Path caminho = Paths.get(System.getProperty("user.home"), local);
 

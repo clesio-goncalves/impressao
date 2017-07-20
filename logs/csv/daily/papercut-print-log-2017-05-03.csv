@@ -1,0 +1,6 @@
+PaperCut Print Logger - http://www.papercut.com/
+Time,User,Pages,Copies,Printer,Document Name,Client,Paper Size,Language,Height,Width,Duplex,Grayscale,Size
+2017-05-03 13:36:51,2160484,1,1,Almoxarifado,"Microsoft Word - Documento1",[fe80::f4f5:1bb2:2dff:16e9],,PDF,,,NOT DUPLEX,NOT GRAYSCALE,562kb,
+2017-05-03 13:53:25,2160484,1,1,DAP,"Microsoft Word - Documento1",192.168.6.4,A4,PCL5,,,NOT DUPLEX,NOT GRAYSCALE,7kb,
+2017-05-03 14:32:33,Convidado,1,1,DAP,"Microsoft Word - Documento1",[fe80::49e4:efe:7341:c1a3],A4,PCL5,,,NOT DUPLEX,NOT GRAYSCALE,7kb,
+2017-05-03 20:05:45,CAPAU-251016$,1,1,DAP,"Microsoft Word - Documento1",CAPAU-251016,A4,PCL5,,,NOT DUPLEX,NOT GRAYSCALE,7kb,

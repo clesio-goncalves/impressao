@@ -52,7 +52,6 @@ public class ImpressaoController {
 	public String relatorio(Model model) {
 		// atualizar();
 		model.addAttribute("impressoes", dao.lista());
-		model.addAttribute("total_impressao", dao.qntImpressao());
 		model.addAttribute("impressoras", dao_impressora.lista());
 		return "impressao/lista";
 	}

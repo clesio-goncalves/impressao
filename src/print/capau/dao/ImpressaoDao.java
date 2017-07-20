@@ -26,7 +26,9 @@ public class ImpressaoDao {
 	}
 
 	public List<Impressao> desativacaoIpv6() {
-		return manager.createQuery("select i from Impressao as i where i.estacao.nome like '[%]' order by i.data desc")
+		return manager
+				.createQuery(
+						"select i from Impressao as i where i.estacao.nome not like 'CAPAU-%' order by i.data desc")
 				.getResultList();
 	}
 
