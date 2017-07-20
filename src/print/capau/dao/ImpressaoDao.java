@@ -71,6 +71,12 @@ public class ImpressaoDao {
 		return manager.createQuery(sql, Impressao.class).getResultList();
 	}
 
+	public List<Impressao> buscaImpressaoPorImpressora(Long id) {
+		return manager
+				.createQuery("select i from Impressao as i where i.impressora.id = :idImpressora", Impressao.class)
+				.setParameter("idImpressora", id).getResultList();
+	}
+
 	public Long qntImpressao() {
 		return manager.createQuery("select SUM(i.qnt_copias * i.qnt_paginas) as total_impressao from Impressao as i",
 				Long.class).getSingleResult();

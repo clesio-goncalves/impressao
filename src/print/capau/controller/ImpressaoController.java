@@ -49,9 +49,16 @@ public class ImpressaoController {
 	private EstacaoDao dao_estacao;
 
 	@RequestMapping("listaImpressoes")
-	public String relatorio(Model model) {
-		// atualizar();
-		model.addAttribute("impressoes", dao.lista());
+	public String relatorio(Long id, Model model) {
+
+		// Verifica se o id da impressora foi informado na listagem de impressões
+		if (id == null) {
+			// atualizar();
+			model.addAttribute("impressoes", dao.lista());
+		} else {
+			model.addAttribute("impressoes", dao.buscaImpressaoPorImpressora(id));
+		}
+
 		model.addAttribute("impressoras", dao_impressora.lista());
 		return "impressao/lista";
 	}
