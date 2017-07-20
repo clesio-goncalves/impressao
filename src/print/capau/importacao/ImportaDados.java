@@ -1,18 +1,20 @@
 package print.capau.importacao;
 
 import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class ImportaDados {
 
 	public static void main(String[] args) {
 
-		final String local = "/eclipse-workspace/impressao/logs/csv/monthly/papercut-print-log-2016-06.csv";
+		final String local = "/eclipse-workspace/impressao/logs/csv/papercut-print-log-all-time.csv";
 
 		Path caminho = Paths.get(System.getProperty("user.home"), local);
 
@@ -34,8 +36,7 @@ public class ImportaDados {
 				System.out.println(string);
 			}
 
-			System.out.println("---------------------------------------");
+			System.out.println(i + " : ---------------------------------------");
 		}
 	}
-
 }

@@ -112,7 +112,6 @@ public class ImpressaoController {
 		}
 
 		model.addAttribute("impressoes", dao.buscaImpressao(impressao));
-		model.addAttribute("total_impressao", dao.qntImpressao());
 		model.addAttribute("impressoras", dao_impressora.lista());
 		return "impressao/tabela";
 	}

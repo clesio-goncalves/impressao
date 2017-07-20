@@ -24,4 +24,9 @@ public class ConfiguracaoController {
 		return "configuracao/ipv6";
 	}
 
+	@RequestMapping("diretorioLogs")
+	public String diretorioLogs(Model model) {
+		return "configuracao/logs";
+	}
+
 }

@@ -76,14 +76,7 @@
 					</div>
 
 					<div class="row">
-						<div class="form-group col-sm-6">
-							<br />
-							<div class="well">
-								<b>Total de Impressões: ${total_impressao}</b>
-							</div>
-						</div>
-
-						<div class="form-group col-sm-6" align="right">
+						<div class="form-group col-sm-12" align="right">
 							<br />
 							<button type="reset" class="btn btn-default" id="limpar">
 								<span class="glyphicon glyphicon-trash"></span> Limpar

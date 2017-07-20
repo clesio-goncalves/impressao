@@ -56,6 +56,8 @@
 					</a>
 						<ul class="dropdown-menu" role="menu">
 							<li><a href="desativacaoIpv6">Desativação IPv6</a></li>
+							<li class="divider"></li>
+							<li><a href="diretorioLogs">Diretório dos Logs</a></li>
 						</ul></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
