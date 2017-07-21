@@ -10,9 +10,10 @@
 <div class="jumbotron">
 	<div class="container">
 		<h1>Bem-vindo ${usuarioLogado.usuario} ao sistema Print CAPAU</h1>
-		<p>
-			Este é um protótipo de um sistema que emite relatórios de impressão.
-		</p>
+		<p>Este é um protótipo de um sistema que emite relatórios de
+			impressão.</p>
+		<p>OBS.: Para o sistema ter acesso ao sistema é necessário
+			informar o diretório de Logs do Paper Cut no Menu de Configuração.</p>
 	</div>
 </div>
 
