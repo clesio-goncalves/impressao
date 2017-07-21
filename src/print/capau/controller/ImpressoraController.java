@@ -29,7 +29,7 @@ public class ImpressoraController {
 	List<Impressora> lista;
 
 	@RequestMapping("listaImpressoras")
-	public String lista(Model model) {
+	private String lista(Model model) {
 
 		lista = new ArrayList<Impressora>();
 		lista = dao.lista();
@@ -43,7 +43,7 @@ public class ImpressoraController {
 	}
 
 	@RequestMapping("editaImpressora")
-	public String edita(Long id, Model model) {
+	private String edita(Long id, Model model) {
 		// Verifica se há setores cadastrados
 		if (dao_setor.lista().size() == 0) {
 			return "redirect:novoSetor";
@@ -55,7 +55,7 @@ public class ImpressoraController {
 	}
 
 	@RequestMapping("vinculaImpressora")
-	public String vincular(@Valid Impressora impressora, BindingResult result) {
+	private String vincular(@Valid Impressora impressora, BindingResult result) {
 
 		if (result.hasErrors()) {
 			return "redirect:editaImpressora?id=" + impressora.getId();

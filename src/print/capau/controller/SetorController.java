@@ -20,12 +20,12 @@ public class SetorController {
 	private SetorDao dao;
 
 	@RequestMapping("novoSetor")
-	public String setor() {
+	private String setor() {
 		return "setor/novo";
 	}
 
 	@RequestMapping("adicionaSetor")
-	public String adiciona(@Valid Setor setor, BindingResult result) {
+	private String adiciona(@Valid Setor setor, BindingResult result) {
 
 		if (result.hasErrors()) {
 			return "redirect:novoSetor";
@@ -37,31 +37,31 @@ public class SetorController {
 	}
 
 	@RequestMapping("listaSetores")
-	public String lista(Model model) {
+	private String lista(Model model) {
 		model.addAttribute("setores", dao.lista());
 		return "setor/lista";
 	}
 
 	@RequestMapping("removeSetor")
-	public String remove(Setor setor) {
+	private String remove(Setor setor) {
 		dao.remove(setor);
 		return "redirect:listaSetores";
 	}
 
 	@RequestMapping("exibeSetor")
-	public String exibe(Long id, Model model) {
+	private String exibe(Long id, Model model) {
 		model.addAttribute("setor", dao.buscaPorId(id));
 		return "setor/exibe";
 	}
 
 	@RequestMapping("editaSetor")
-	public String edita(Long id, Model model) {
+	private String edita(Long id, Model model) {
 		model.addAttribute("setor", dao.buscaPorId(id));
 		return "setor/edita";
 	}
 
 	@RequestMapping("alteraSetor")
-	public String altera(@Valid Setor setor, BindingResult result) {
+	private String altera(@Valid Setor setor, BindingResult result) {
 
 		if (result.hasErrors()) {
 			return "redirect:editaSetor?id=" + setor.getId();

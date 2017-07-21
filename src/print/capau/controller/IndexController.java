@@ -7,17 +7,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class IndexController {
 
 	@RequestMapping("index")
-	public String index() {
+	private String index() {
 		return "index";
 	}
 	
 	@RequestMapping("erro")
-	public String erro() {
+	private String erro() {
 		return "erro/erro";
 	}
 	
 	@RequestMapping("404")
-	public String erro404() {
+	private String erro404() {
 		return "erro/404";
 	}
 

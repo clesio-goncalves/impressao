@@ -194,10 +194,10 @@ public class Impressao {
 		return calendar;
 	}
 
-	public List<String> importarDados() {
-		final String local = "eclipse-workspace/impressao/logs/csv/papercut-print-log-all-time.csv";
+	public List<String> importarDados(String diretorioLogs) {
+		final String local = "/csv/papercut-print-log-all-time.csv";
 
-		Path caminho = Paths.get(System.getProperty("user.home"), local);
+		Path caminho = Paths.get(diretorioLogs + local);
 
 		try {
 			return Files.readAllLines(caminho, StandardCharsets.ISO_8859_1);

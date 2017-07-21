@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import print.capau.dao.ConfiguracaoDao;
 import print.capau.dao.EstacaoDao;
 import print.capau.dao.ImpressaoDao;
 import print.capau.dao.ImpressoraDao;
@@ -48,8 +49,11 @@ public class ImpressaoController {
 	@Autowired
 	private EstacaoDao dao_estacao;
 
+	@Autowired
+	private ConfiguracaoDao dao_configuracao;
+
 	@RequestMapping("listaImpressoes")
-	public String relatorio(Long id, Model model) {
+	private String relatorio(Long id, Model model) {
 
 		// Verifica se o id da impressora foi informado na listagem de impressões
 		if (id == null) {
@@ -64,7 +68,7 @@ public class ImpressaoController {
 	}
 
 	@RequestMapping(value = "filtrarImpressoes", method = RequestMethod.POST)
-	public String filtrar(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
+	private String filtrar(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
 
 		// Impressao
 		impressao = new Impressao();
@@ -122,12 +126,12 @@ public class ImpressaoController {
 		return "impressao/tabela";
 	}
 
-	public void atualizar() {
+	private void atualizar() {
 		linhas = new ArrayList<String>();
 		impressao = new Impressao();
 
 		// Importa as linhas do arquivo
-		linhas = impressao.importarDados();
+		linhas = impressao.importarDados(diretorioLogs());
 
 		String[] dados = null;
 
@@ -182,4 +186,7 @@ public class ImpressaoController {
 		}
 	}
 
+	private String diretorioLogs() {
+		return dao_configuracao.buscaDiretorio().getDiretorio();
+	}
 }

@@ -24,7 +24,7 @@ public class ConfiguracaoController {
 	private ImpressaoDao dao_impressao;
 
 	@RequestMapping("diretorioLogs")
-	public String diretorioLogs(Model model) {
+	private String diretorioLogs(Model model) {
 
 		// Se não tiver um diretorio cadastrado
 		if (dao.qntRegistro().intValue() == 0) {
@@ -36,7 +36,7 @@ public class ConfiguracaoController {
 	}
 
 	@RequestMapping("adicionaDiretorioLogs")
-	public String adiciona(@Valid Configuracao configuracao, BindingResult result) {
+	private String adiciona(@Valid Configuracao configuracao, BindingResult result) {
 
 		if (result.hasErrors()) {
 			return "redirect:diretorioLogs";
@@ -48,7 +48,7 @@ public class ConfiguracaoController {
 	}
 
 	@RequestMapping("alteraDiretorioLogs")
-	public String altera(@Valid Configuracao configuracao, BindingResult result) {
+	private String altera(@Valid Configuracao configuracao, BindingResult result) {
 
 		if (result.hasErrors()) {
 			return "redirect:diretorioLogs";
@@ -60,7 +60,7 @@ public class ConfiguracaoController {
 	}
 
 	@RequestMapping("desativacaoIpv6")
-	public String desativacaoIpv6(Model model) {
+	private String desativacaoIpv6(Model model) {
 
 		model.addAttribute("impressoes", dao_impressao.desativacaoIpv6());
 
