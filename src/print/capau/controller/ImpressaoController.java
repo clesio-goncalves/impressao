@@ -1,8 +1,14 @@
 package print.capau.controller;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +25,7 @@ import print.capau.dao.EstacaoDao;
 import print.capau.dao.ImpressaoDao;
 import print.capau.dao.ImpressoraDao;
 import print.capau.dao.UsuarioDao;
+import print.capau.modelo.Configuracao;
 import print.capau.modelo.Estacao;
 import print.capau.modelo.Impressao;
 import print.capau.modelo.Impressora;
@@ -37,38 +44,53 @@ public class ImpressaoController {
 	private Long estacao_id;
 	private String data_inicial, data_final;
 
-	@Autowired
-	private ImpressaoDao dao;
+	// ---
+	private Configuracao configuracao = new Configuracao();
+
+	private int indice, ultima_linha, tmp_ultima_linha;
+	private int total_linhas;
+	private String nome_arquivo;
+	private Path arquivo;
 
 	@Autowired
-	private UsuarioDao dao_usuario;
+	ImpressaoDao dao;
 
 	@Autowired
-	private ImpressoraDao dao_impressora;
+	UsuarioDao dao_usuario;
 
 	@Autowired
-	private EstacaoDao dao_estacao;
+	ImpressoraDao dao_impressora;
 
 	@Autowired
-	private ConfiguracaoDao dao_configuracao;
+	EstacaoDao dao_estacao;
+
+	@Autowired
+	ConfiguracaoDao dao_configuracao;
 
 	@RequestMapping("listaImpressoes")
-	private String relatorio(Long id, Model model) {
+	public String relatorio(Long id, Model model) {
 
-		// Verifica se o id da impressora foi informado na listagem de impressões
-		if (id == null) {
-			// atualizar();
-			model.addAttribute("impressoes", dao.lista());
+		// Verifica se o diretorio de logs ja está cadastrado
+		if (dao_configuracao.qntRegistro().intValue() == 0) {
+			return "configuracao/logs/novo";
 		} else {
-			model.addAttribute("impressoes", dao.buscaImpressaoPorImpressora(id));
+			// Verifica se o id da impressora foi informado na listagem de impressões
+			if (id == null) {
+				// atualizar();
+				atualizacao_geral();
+				model.addAttribute("impressoes", dao.lista());
+			} else {
+				model.addAttribute("impressoes", dao.buscaImpressaoPorImpressora(id));
+			}
+
+			model.addAttribute("impressoras", dao_impressora.lista());
+			return "impressao/lista";
 		}
 
-		model.addAttribute("impressoras", dao_impressora.lista());
-		return "impressao/lista";
 	}
 
 	@RequestMapping(value = "filtrarImpressoes", method = RequestMethod.POST)
-	private String filtrar(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
+	public String filtrar(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
 
 		// Impressao
 		impressao = new Impressao();
@@ -126,7 +148,70 @@ public class ImpressaoController {
 		return "impressao/tabela";
 	}
 
-	private void atualizar() {
+	public void atualizacao_geral() {
+
+		try {
+
+			// Lista de arquivos ordenados por nome
+			List<Path> diretorio = Files.list(Paths.get(diretorioLogs())).sorted().collect(Collectors.toList());
+
+			// Pega o ultimo arquivo do banco de dados, caso já esteja inserido
+			if (configuracao.getUltimo_arquivo() != null) {
+				// Descobre o indice do ultimo arquivo atualizado
+				for (int i = 0; i < diretorio.size(); i++) {
+					if (diretorio.get(i).toString().endsWith(configuracao.getUltimo_arquivo())) {
+						indice = i;
+						ultima_linha = configuracao.getUltima_linha();
+					}
+				}
+			} else {
+				indice = 0;
+				ultima_linha = 2;
+			}
+
+			System.out.println("Indice do ultimo arquivo: " + indice);
+
+			// Percorre todos os arquivos desde o último arquivo atualizado
+			for (int i = indice; i < diretorio.size(); i++) {
+
+				arquivo = diretorio.get(i);
+
+				List<String> linhas_arquivo = Files.readAllLines(arquivo, StandardCharsets.ISO_8859_1);
+
+				nome_arquivo = arquivo.getFileName().toString();
+				total_linhas = linhas_arquivo.size();
+
+				System.out.println("Arquivo " + i + ": " + nome_arquivo + " -> Total de linhas: " + total_linhas);
+
+				System.out.println(
+						"------------------------------------------------------------------------------------------------");
+
+				if (ultima_linha < total_linhas) {
+					// Percorre todos as linhas do arquivo a partir da ultima linha
+					for (int j = ultima_linha; j < total_linhas; j++) {
+						System.out.println((j + 1) + " - " + linhas_arquivo.get(j));
+						ultima_linha = j + 1;
+					}
+				}
+
+				tmp_ultima_linha = ultima_linha;
+				ultima_linha = 2;
+
+				System.out.println(
+						"=======================================================================================================");
+			}
+
+			// Altera o ultimo arquivo e ultima linha no banco de dados
+			configuracao.setUltimo_arquivo(nome_arquivo);
+			configuracao.setUltima_linha(tmp_ultima_linha);
+			dao_configuracao.altera(configuracao);
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void atualizar() {
 		linhas = new ArrayList<String>();
 		impressao = new Impressao();
 
@@ -186,7 +271,8 @@ public class ImpressaoController {
 		}
 	}
 
-	private String diretorioLogs() {
-		return dao_configuracao.buscaDiretorio().getDiretorio();
+	public String diretorioLogs() {
+		configuracao = dao_configuracao.buscaConfiguracao();
+		return configuracao.getDiretorio() + "/csv/daily";
 	}
 }

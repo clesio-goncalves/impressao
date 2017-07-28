@@ -21,15 +21,15 @@ import print.capau.modelo.Impressora;
 public class ImpressoraController {
 
 	@Autowired
-	private ImpressoraDao dao;
+	ImpressoraDao dao;
 
 	@Autowired
-	private SetorDao dao_setor;
+	SetorDao dao_setor;
 
 	List<Impressora> lista;
 
 	@RequestMapping("listaImpressoras")
-	private String lista(Model model) {
+	public String lista(Model model) {
 
 		lista = new ArrayList<Impressora>();
 		lista = dao.lista();
@@ -43,7 +43,7 @@ public class ImpressoraController {
 	}
 
 	@RequestMapping("editaImpressora")
-	private String edita(Long id, Model model) {
+	public String edita(Long id, Model model) {
 		// Verifica se há setores cadastrados
 		if (dao_setor.lista().size() == 0) {
 			return "redirect:novoSetor";
@@ -55,7 +55,7 @@ public class ImpressoraController {
 	}
 
 	@RequestMapping("vinculaImpressora")
-	private String vincular(@Valid Impressora impressora, BindingResult result) {
+	public String vincular(@Valid Impressora impressora, BindingResult result) {
 
 		if (result.hasErrors()) {
 			return "redirect:editaImpressora?id=" + impressora.getId();

@@ -9,11 +9,11 @@
 	<!-- Spring MVC -->
 	<dependencies>
 
-		<!-- Spring Framework 4.3.9 -->
+		<!-- Spring Framework 4.3.10 -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
-			<version>4.3.9.RELEASE</version>
+			<version>4.3.10.RELEASE</version>
 		</dependency>
 
 		<!-- Spring Web Flow 2.4.5 -->
@@ -23,11 +23,11 @@
 			<version>2.4.5.RELEASE</version>
 		</dependency>
 
-		<!-- Spring Data JPA 1.11.4 -->
+		<!-- Spring Data JPA 1.11.6 -->
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-jpa</artifactId>
-			<version>1.11.4.RELEASE</version>
+			<version>1.11.6.RELEASE</version>
 		</dependency>
 
 		<!-- -->
@@ -38,6 +38,18 @@
 		</dependency>
 
 	</dependencies>
+
+	<!-- Repositório Spring Data JPA 1.11.6 -->
+	<repositories>
+		<repository>
+			<id>spring-libs-release</id>
+			<name>Spring Releases</name>
+			<url>https://repo.spring.io/libs-release</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
 
 	<build>
 		<sourceDirectory>src</sourceDirectory>

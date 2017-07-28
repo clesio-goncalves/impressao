@@ -18,25 +18,25 @@ import print.capau.modelo.Configuracao;
 public class ConfiguracaoController {
 
 	@Autowired
-	private ConfiguracaoDao dao;
+	ConfiguracaoDao dao;
 
 	@Autowired
-	private ImpressaoDao dao_impressao;
+	ImpressaoDao dao_impressao;
 
 	@RequestMapping("diretorioLogs")
-	private String diretorioLogs(Model model) {
+	public String diretorioLogs(Model model) {
 
 		// Se não tiver um diretorio cadastrado
 		if (dao.qntRegistro().intValue() == 0) {
 			return "configuracao/logs/novo";
 		} else {
-			model.addAttribute("configuracao", dao.buscaDiretorio());
+			model.addAttribute("configuracao", dao.buscaConfiguracao());
 			return "configuracao/logs/edita";
 		}
 	}
 
 	@RequestMapping("adicionaDiretorioLogs")
-	private String adiciona(@Valid Configuracao configuracao, BindingResult result) {
+	public String adiciona(@Valid Configuracao configuracao, BindingResult result) {
 
 		if (result.hasErrors()) {
 			return "redirect:diretorioLogs";
@@ -48,7 +48,7 @@ public class ConfiguracaoController {
 	}
 
 	@RequestMapping("alteraDiretorioLogs")
-	private String altera(@Valid Configuracao configuracao, BindingResult result) {
+	public String altera(@Valid Configuracao configuracao, BindingResult result) {
 
 		if (result.hasErrors()) {
 			return "redirect:diretorioLogs";
@@ -60,7 +60,7 @@ public class ConfiguracaoController {
 	}
 
 	@RequestMapping("desativacaoIpv6")
-	private String desativacaoIpv6(Model model) {
+	public String desativacaoIpv6(Model model) {
 
 		model.addAttribute("impressoes", dao_impressao.desativacaoIpv6());
 

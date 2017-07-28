@@ -15,6 +15,10 @@ public class Configuracao {
 	@NotNull
 	private String diretorio;
 
+	private String ultimo_arquivo;
+
+	private Integer ultima_linha;
+
 	public Long getId() {
 		return id;
 	}
@@ -29,6 +33,22 @@ public class Configuracao {
 
 	public void setDiretorio(String diretorio) {
 		this.diretorio = diretorio;
+	}
+
+	public String getUltimo_arquivo() {
+		return ultimo_arquivo;
+	}
+
+	public void setUltimo_arquivo(String ultimo_arquivo) {
+		this.ultimo_arquivo = ultimo_arquivo;
+	}
+
+	public Integer getUltima_linha() {
+		return ultima_linha;
+	}
+
+	public void setUltima_linha(Integer ultima_linha) {
+		this.ultima_linha = ultima_linha;
 	}
 
 }

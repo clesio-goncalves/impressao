@@ -17,15 +17,15 @@ import print.capau.modelo.Setor;
 public class SetorController {
 
 	@Autowired
-	private SetorDao dao;
+	SetorDao dao;
 
 	@RequestMapping("novoSetor")
-	private String setor() {
+	public String setor() {
 		return "setor/novo";
 	}
 
 	@RequestMapping("adicionaSetor")
-	private String adiciona(@Valid Setor setor, BindingResult result) {
+	public String adiciona(@Valid Setor setor, BindingResult result) {
 
 		if (result.hasErrors()) {
 			return "redirect:novoSetor";
@@ -37,31 +37,31 @@ public class SetorController {
 	}
 
 	@RequestMapping("listaSetores")
-	private String lista(Model model) {
+	public String lista(Model model) {
 		model.addAttribute("setores", dao.lista());
 		return "setor/lista";
 	}
 
 	@RequestMapping("removeSetor")
-	private String remove(Setor setor) {
+	public String remove(Setor setor) {
 		dao.remove(setor);
 		return "redirect:listaSetores";
 	}
 
 	@RequestMapping("exibeSetor")
-	private String exibe(Long id, Model model) {
+	public String exibe(Long id, Model model) {
 		model.addAttribute("setor", dao.buscaPorId(id));
 		return "setor/exibe";
 	}
 
 	@RequestMapping("editaSetor")
-	private String edita(Long id, Model model) {
+	public String edita(Long id, Model model) {
 		model.addAttribute("setor", dao.buscaPorId(id));
 		return "setor/edita";
 	}
 
 	@RequestMapping("alteraSetor")
-	private String altera(@Valid Setor setor, BindingResult result) {
+	public String altera(@Valid Setor setor, BindingResult result) {
 
 		if (result.hasErrors()) {
 			return "redirect:editaSetor?id=" + setor.getId();

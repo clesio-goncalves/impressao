@@ -20,18 +20,18 @@ import print.capau.modelo.Perfil;
 public class LoginController {
 
 	@Autowired
-	private LoginDao dao;
+	LoginDao dao;
 
 	@Autowired
-	private SetorDao dao_setor;
+	SetorDao dao_setor;
 
 	@RequestMapping("login")
-	private String login() {
+	public String login() {
 		return "login/login";
 	}
 
 	@RequestMapping("efetuaLogin")
-	private String efetuaLogin(Login login, HttpSession session) {
+	public String efetuaLogin(Login login, HttpSession session) {
 		if (dao.existeLogin(login)) {
 			session.setAttribute("usuarioLogado", login);
 			return "redirect:index";
@@ -40,13 +40,13 @@ public class LoginController {
 	}
 
 	@RequestMapping("logout")
-	private String logout(HttpSession session) {
+	public String logout(HttpSession session) {
 		session.invalidate();
 		return "redirect:login";
 	}
 
 	@RequestMapping("novoUsuario")
-	private String novoUsuario(Model model) {
+	public String novoUsuario(Model model) {
 
 		// Testa se há setores cadastrados
 		if (dao_setor.lista().size() == 0) {
@@ -61,7 +61,7 @@ public class LoginController {
 	}
 
 	@RequestMapping("adicionaUsuario")
-	private String adiciona(@Valid Login login, BindingResult result) {
+	public String adiciona(@Valid Login login, BindingResult result) {
 
 		if (result.hasErrors() || login.comparaSenhas() == false) {
 			return "redirect:novoUsuario";
@@ -73,25 +73,25 @@ public class LoginController {
 	}
 
 	@RequestMapping("listaUsuarios")
-	private String lista(Model model) {
+	public String lista(Model model) {
 		model.addAttribute("logins", dao.lista());
 		return "login/lista";
 	}
 
 	@RequestMapping("removeUsuario")
-	private String remove(Login login) {
+	public String remove(Login login) {
 		dao.remove(login);
 		return "redirect:listaUsuarios";
 	}
 
 	@RequestMapping("exibeUsuario")
-	private String exibe(Long id, Model model) {
+	public String exibe(Long id, Model model) {
 		model.addAttribute("login", dao.buscaPorId(id));
 		return "login/exibe";
 	}
 
 	@RequestMapping("editaUsuario")
-	private String edita(Long id, Model model) {
+	public String edita(Long id, Model model) {
 
 		// Testa se há setores cadastrados
 		if (dao_setor.lista().size() == 0) {
@@ -106,7 +106,7 @@ public class LoginController {
 	}
 
 	@RequestMapping("alteraUsuario")
-	private String altera(@Valid Login login, BindingResult result) {
+	public String altera(@Valid Login login, BindingResult result) {
 
 		if (result.hasErrors() || login.comparaSenhas() == false) {
 			return "redirect:editaUsuario?id=" + login.getId();

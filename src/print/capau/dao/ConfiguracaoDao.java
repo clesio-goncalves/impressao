@@ -25,7 +25,7 @@ public class ConfiguracaoDao {
 		return manager.createQuery("select count(c) from Configuracao c", Long.class).getSingleResult();
 	}
 
-	public Configuracao buscaDiretorio() {
+	public Configuracao buscaConfiguracao() {
 		return manager.createQuery("select c from Configuracao c", Configuracao.class).getSingleResult();
 	}
 
