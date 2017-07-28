@@ -35,7 +35,7 @@ import print.capau.modelo.Usuario;
 @Controller
 public class ImpressaoController {
 
-	private List<String> linhas;
+	private List<String> linhas_arquivo;
 	private Impressao impressao;
 	private Impressora impressora;
 	private Estacao estacao;
@@ -46,7 +46,6 @@ public class ImpressaoController {
 
 	// ---
 	private Configuracao configuracao = new Configuracao();
-
 	private int indice, ultima_linha, tmp_ultima_linha;
 	private int total_linhas;
 	private String nome_arquivo;
@@ -174,14 +173,19 @@ public class ImpressaoController {
 			// Percorre todos os arquivos desde o último arquivo atualizado
 			for (int i = indice; i < diretorio.size(); i++) {
 
+				linhas_arquivo = new ArrayList<String>();
+				impressao = new Impressao();
+
 				arquivo = diretorio.get(i);
 
-				List<String> linhas_arquivo = Files.readAllLines(arquivo, StandardCharsets.ISO_8859_1);
+				linhas_arquivo = Files.readAllLines(arquivo, StandardCharsets.ISO_8859_1);
 
 				nome_arquivo = arquivo.getFileName().toString();
 				total_linhas = linhas_arquivo.size();
 
 				System.out.println("Arquivo " + i + ": " + nome_arquivo + " -> Total de linhas: " + total_linhas);
+
+				System.out.println("Última linha: " + ultima_linha);
 
 				System.out.println(
 						"------------------------------------------------------------------------------------------------");
@@ -189,7 +193,53 @@ public class ImpressaoController {
 				if (ultima_linha < total_linhas) {
 					// Percorre todos as linhas do arquivo a partir da ultima linha
 					for (int j = ultima_linha; j < total_linhas; j++) {
+
 						System.out.println((j + 1) + " - " + linhas_arquivo.get(j));
+
+						String[] dados = linhas_arquivo.get(j).split(",");
+
+						// Impressora
+						impressora = new Impressora();
+						impressora.setNome(dados[4]);
+						dao_impressora.adiciona(impressora);
+
+						// Estação
+						estacao = new Estacao();
+						estacao.setNome(dados[6]);
+						dao_estacao.adiciona(estacao);
+
+						// Usuario
+						usuario = new Usuario();
+						usuario.setNome(dados[1]);
+
+						estacao_id = dao_estacao.buscaIdPeloNome(dados[6]).get(0).getId();
+						usuario.getEstacao().setId(estacao_id);
+
+						dao_usuario.adiciona(usuario);
+
+						// Impressao
+						impressao = new Impressao();
+
+						impressao.getImpressora().setId(dao_impressora.buscaIdPeloNome(dados[4]).get(0).getId());
+						impressao.getEstacao().setId(estacao_id);
+						impressao.getUsuario().setId(dao_usuario.buscaUsuario(usuario).get(0).getId());
+
+						impressao.setQnt_paginas(Integer.parseInt(dados[2]));
+						impressao.setQnt_copias(Integer.parseInt(dados[3]));
+						impressao.setDocumento(dados[5]);
+
+						boleano = dados[11].equals("NOT DUPLEX") ? false : true;
+						impressao.setDuplex(boleano);
+
+						boleano = dados[12].equals("NOT GRAYSCALE") ? false : true;
+						impressao.setEscala_cinza(boleano);
+
+						// Data
+						impressao.setData(impressao.converteStringParaCalendar(dados[0], "yyyy-MM-dd HH:mm:ss"));
+
+						// Adiciona a impressora
+						dao.adiciona(impressao);
+
 						ultima_linha = j + 1;
 					}
 				}
@@ -208,66 +258,6 @@ public class ImpressaoController {
 
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
-	}
-
-	public void atualizar() {
-		linhas = new ArrayList<String>();
-		impressao = new Impressao();
-
-		// Importa as linhas do arquivo
-		linhas = impressao.importarDados(diretorioLogs());
-
-		String[] dados = null;
-
-		for (int i = 2; i < linhas.size(); i++) {
-			dados = linhas.get(i).split(",");
-
-			System.out.println(linhas.get(i));
-
-			// Impressora
-			impressora = new Impressora();
-			impressora.setNome(dados[4]);
-			dao_impressora.adiciona(impressora);
-
-			// Estação
-			estacao = new Estacao();
-			estacao.setNome(dados[6]);
-			dao_estacao.adiciona(estacao);
-
-			// Usuario
-			usuario = new Usuario();
-			usuario.setNome(dados[1]);
-
-			estacao_id = dao_estacao.buscaIdPeloNome(dados[6]).get(0).getId();
-			usuario.getEstacao().setId(estacao_id);
-
-			dao_usuario.adiciona(usuario);
-
-			// Impressao
-			impressao = new Impressao();
-
-			impressao.getImpressora().setId(dao_impressora.buscaIdPeloNome(dados[4]).get(0).getId());
-			impressao.getEstacao().setId(estacao_id);
-			impressao.getUsuario().setId(dao_usuario.buscaUsuario(usuario).get(0).getId());
-
-			impressao.setQnt_paginas(Integer.parseInt(dados[2]));
-			impressao.setQnt_copias(Integer.parseInt(dados[3]));
-			impressao.setDocumento(dados[5]);
-
-			boleano = dados[11].equals("NOT DUPLEX") ? false : true;
-			impressao.setDuplex(boleano);
-
-			boleano = dados[12].equals("NOT GRAYSCALE") ? false : true;
-			impressao.setEscala_cinza(boleano);
-
-			// Data
-			impressao.setData(impressao.converteStringParaCalendar(dados[0], "yyyy-MM-dd HH:mm:ss"));
-
-			// Adiciona a impressora
-			dao.adiciona(impressao);
-
-			System.out.println("---------------------------------------");
 		}
 	}
 
