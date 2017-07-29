@@ -52,9 +52,9 @@ public class ImpressaoDao {
 			sql = sql + " and i.estacao.nome = '" + impressao.getEstacao().getNome() + "'";
 		}
 
-		// Usuário
-		if (impressao.getUsuario().getNome() != null) {
-			sql = sql + " and i.usuario.nome = '" + impressao.getUsuario().getNome() + "'";
+		// UsuárioPC
+		if (impressao.getUsuarioPC().getNome() != null) {
+			sql = sql + " and i.usuarioPC.nome = '" + impressao.getUsuarioPC().getNome() + "'";
 		}
 
 		// Quantidade Minima de Impressoes

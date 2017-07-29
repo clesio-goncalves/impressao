@@ -6,10 +6,6 @@
 
 	<display-name>impressao</display-name>
 
-	<welcome-file-list>
-		<welcome-file>login/login</welcome-file>
-	</welcome-file-list>
-
 	<!-- Servlet do Spring MVC -->
 	<servlet>
 		<servlet-name>Spring MVC Dispatcher Servlet</servlet-name>
@@ -37,5 +33,13 @@
 		<error-code>404</error-code>
 		<location>/404</location>
 	</error-page>
+
+	<welcome-file-list>
+		<welcome-file>/login</welcome-file>
+	</welcome-file-list>
+
+	<session-config>
+		<session-timeout>5</session-timeout>
+	</session-config>
 
 </web-app>

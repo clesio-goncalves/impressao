@@ -21,7 +21,7 @@
 			<tr>
 				<td><fmt:formatDate value="${impressao.data.time}"
 						pattern="dd-MM-yyyy HH:mm:ss" /></td>
-				<td>${impressao.usuario.nome}</td>
+				<td>${impressao.usuarioPC.nome}</td>
 				<td>${impressao.qnt_paginas}</td>
 				<td>${impressao.qnt_copias}</td>
 				<td>${impressao.impressora.nome}</td>

@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="UTF-8"%>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width">
 <link rel="stylesheet" type="text/css"
@@ -62,9 +61,9 @@
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown" role="button" aria-expanded="false">${usuarioLogado.usuario}
-							<span class="caret"></span>
-					</a>
+						data-toggle="dropdown" role="button" aria-expanded="false"><span
+							class="glyphicon glyphicon-user"></span> ${usuarioLogado.nome} <span
+							class="caret"></span> </a>
 						<ul class="dropdown-menu" role="menu">
 							<li><a href="#">Perfil</a></li>
 							<li class="divider"></li>

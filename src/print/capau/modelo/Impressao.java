@@ -38,7 +38,7 @@ public class Impressao {
 
 	@NotNull
 	@ManyToOne
-	private Usuario usuario = new Usuario();
+	private UsuarioPC usuarioPC = new UsuarioPC();
 
 	@NotNull
 	private String documento;
@@ -93,12 +93,12 @@ public class Impressao {
 		this.impressora = impressora;
 	}
 
-	public Usuario getUsuario() {
-		return usuario;
+	public UsuarioPC getUsuarioPC() {
+		return usuarioPC;
 	}
 
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
+	public void setUsuarioPC(UsuarioPC usuarioPC) {
+		this.usuarioPC = usuarioPC;
 	}
 
 	public String getDocumento() {

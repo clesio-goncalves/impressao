@@ -24,12 +24,12 @@ import print.capau.dao.ConfiguracaoDao;
 import print.capau.dao.EstacaoDao;
 import print.capau.dao.ImpressaoDao;
 import print.capau.dao.ImpressoraDao;
-import print.capau.dao.UsuarioDao;
+import print.capau.dao.UsuarioPCDao;
 import print.capau.modelo.Configuracao;
 import print.capau.modelo.Estacao;
 import print.capau.modelo.Impressao;
 import print.capau.modelo.Impressora;
-import print.capau.modelo.Usuario;
+import print.capau.modelo.UsuarioPC;
 
 @Transactional
 @Controller
@@ -39,7 +39,7 @@ public class ImpressaoController {
 	private Impressao impressao;
 	private Impressora impressora;
 	private Estacao estacao;
-	private Usuario usuario;
+	private UsuarioPC usuarioPC;
 	private boolean boleano;
 	private Long estacao_id;
 	private String data_inicial, data_final;
@@ -55,7 +55,7 @@ public class ImpressaoController {
 	ImpressaoDao dao;
 
 	@Autowired
-	UsuarioDao dao_usuario;
+	UsuarioPCDao dao_usuarioPC;
 
 	@Autowired
 	ImpressoraDao dao_impressora;
@@ -70,9 +70,7 @@ public class ImpressaoController {
 	public String relatorio(Long id, Model model) {
 
 		// Verifica se o diretorio de logs ja está cadastrado
-		if (dao_configuracao.qntRegistro().intValue() == 0) {
-			return "configuracao/logs/novo";
-		} else {
+		if (dao_configuracao.qntRegistro().intValue() != 0) {
 			// Verifica se o id da impressora foi informado na listagem de impressões
 			if (id == null) {
 				// atualizar();
@@ -84,6 +82,8 @@ public class ImpressaoController {
 
 			model.addAttribute("impressoras", dao_impressora.lista());
 			return "impressao/lista";
+		} else {
+			return "configuracao/logs/novo";
 		}
 
 	}
@@ -139,7 +139,7 @@ public class ImpressaoController {
 		// Usuário
 		// Se for informado o usuário
 		if (!request.getParameter("nome_usuario").equals("")) {
-			impressao.getUsuario().setNome(request.getParameter("nome_usuario"));
+			impressao.getUsuarioPC().setNome(request.getParameter("nome_usuario"));
 		}
 
 		model.addAttribute("impressoes", dao.buscaImpressao(impressao));
@@ -209,20 +209,20 @@ public class ImpressaoController {
 						dao_estacao.adiciona(estacao);
 
 						// Usuario
-						usuario = new Usuario();
-						usuario.setNome(dados[1]);
+						usuarioPC = new UsuarioPC();
+						usuarioPC.setNome(dados[1]);
 
 						estacao_id = dao_estacao.buscaIdPeloNome(dados[6]).get(0).getId();
-						usuario.getEstacao().setId(estacao_id);
+						usuarioPC.getEstacao().setId(estacao_id);
 
-						dao_usuario.adiciona(usuario);
+						dao_usuarioPC.adiciona(usuarioPC);
 
 						// Impressao
 						impressao = new Impressao();
 
 						impressao.getImpressora().setId(dao_impressora.buscaIdPeloNome(dados[4]).get(0).getId());
 						impressao.getEstacao().setId(estacao_id);
-						impressao.getUsuario().setId(dao_usuario.buscaUsuario(usuario).get(0).getId());
+						impressao.getUsuarioPC().setId(dao_usuarioPC.buscaUsuario(usuarioPC).get(0).getId());
 
 						impressao.setQnt_paginas(Integer.parseInt(dados[2]));
 						impressao.setQnt_copias(Integer.parseInt(dados[3]));

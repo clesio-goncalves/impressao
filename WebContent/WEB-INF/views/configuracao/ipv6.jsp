@@ -1,6 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ page language="java" contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,7 +32,7 @@
 							<tr>
 								<td><fmt:formatDate value="${impressao.data.time}"
 										pattern="dd-MM-yyyy HH:mm:ss" /></td>
-								<td>${impressao.usuario.nome}</td>
+								<td>${impressao.usuarioPC.nome}</td>
 								<td>${impressao.impressora.nome}</td>
 								<td>${impressao.documento}</td>
 								<td>${impressao.estacao.nome}</td>
