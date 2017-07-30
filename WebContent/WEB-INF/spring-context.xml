@@ -53,9 +53,7 @@
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
 
-	<!-- Registra o interceptador -->
-	<mvc:interceptors>
-		<bean class="print.capau.interceptor.AutorizadorInterceptor" />
-	</mvc:interceptors>
+	<!-- Registra o interceptador <mvc:interceptors> <bean class="print.capau.interceptor.AutorizadorInterceptor" 
+		/> </mvc:interceptors> -->
 
 </beans>

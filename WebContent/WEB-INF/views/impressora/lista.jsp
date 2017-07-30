@@ -60,13 +60,12 @@
 				</table>
 			</div>
 		</div>
+	</div>
 
-		<div align="center">
-			<!-- PDF -->
-			<a href="relatorioImpressora" class="btn btn-primary"><span
-				class="glyphicon"></span> PDF</a>
-		</div>
-
+	<div align="center">
+		<!-- PDF -->
+		<a href="relatorioImpressora" class="btn btn-danger"><span
+			class="glyphicon glyphicon-file"></span> Relatório PDF</a>
 	</div>
 </div>
 

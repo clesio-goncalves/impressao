@@ -1,34 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.4.0.final using JasperReports Library version 6.4.1  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="impressoras" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d7a0b582-fc78-4562-b217-92900b4dc5a2">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="impressoras" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bcab89f2-cddb-4665-96cc-565e9500da2b">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
 	<queryString language="SQL">
-		<![CDATA[select * from Impressora]]>
+		<![CDATA[SELECT im.id, im.nome AS impressora, (select s.nome from Setor AS s where s.id = im.setor_id) AS setor, SUM(i.qnt_copias * i.qnt_paginas) AS total_impressao
+FROM Impressao AS i
+INNER JOIN Impressora AS im ON im.id = i.impressora_id
+GROUP BY im.id
+ORDER BY total_impressao DESC]]>
 	</queryString>
 	<field name="id" class="java.lang.Long"/>
-	<field name="nome" class="java.lang.String"/>
-	<field name="setor_id" class="java.lang.Long"/>
+	<field name="impressora" class="java.lang.String"/>
+	<field name="setor" class="java.lang.String"/>
+	<field name="total_impressao" class="java.lang.Long"/>
 	<background>
 		<band/>
 	</background>
 	<title>
 		<band height="72">
 			<frame>
-				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#006699" uuid="64323be8-0db2-461f-b309-6c40ecb517b1"/>
+				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#006699" uuid="153afa95-34dd-410c-8475-6db7c156b347"/>
 				<staticText>
-					<reportElement x="20" y="20" width="260" height="43" forecolor="#FFFFFF" uuid="277f9062-834d-402b-b02b-ff29434ea690"/>
+					<reportElement x="20" y="20" width="260" height="43" forecolor="#FFFFFF" uuid="f37e15aa-50dc-40dd-8059-620636a7bd5d"/>
 					<textElement>
 						<font size="34" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Impressoras]]></text>
 				</staticText>
 				<staticText>
-					<reportElement x="395" y="43" width="180" height="20" forecolor="#FFFFFF" uuid="b2e2a0cb-dc27-44ad-b813-a27e06fa756f"/>
+					<reportElement x="395" y="43" width="180" height="20" forecolor="#FFFFFF" uuid="50a2df07-ac13-4628-a7c5-4f8a80f0edb7"/>
 					<textElement textAlignment="Right">
 						<font size="14" isBold="false"/>
 					</textElement>
-					<text><![CDATA[Listagem de impressoras]]></text>
+					<text><![CDATA[Relatório de impressoras]]></text>
 				</staticText>
 			</frame>
 		</band>
@@ -39,56 +44,70 @@
 	<columnHeader>
 		<band height="21">
 			<line>
-				<reportElement x="-20" y="20" width="595" height="1" forecolor="#666666" uuid="067ccdf5-4742-48fc-89a4-f3d88b822756"/>
+				<reportElement x="-20" y="20" width="595" height="1" forecolor="#666666" uuid="4bc8c01e-7031-435a-a8da-0e5920a0d484"/>
 			</line>
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="0" width="185" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="7902bb91-e573-4b90-9738-3b4471021677"/>
+				<reportElement mode="Opaque" x="0" y="0" width="80" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="7c6b9169-1da7-4ad7-ba94-7aa8c6efbdc4"/>
 				<textElement textAlignment="Left">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[ID]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="185" y="0" width="185" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="fae9c324-899f-4ffb-9151-e12b7b59b7d9"/>
+				<reportElement mode="Opaque" x="80" y="0" width="180" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="2aa7079b-33b2-4b8b-b3a6-f6f185c00f51"/>
 				<textElement textAlignment="Left">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Impressora]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="370" y="0" width="185" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="f04c72b7-99fd-4574-9d65-df342a131c31"/>
+				<reportElement mode="Opaque" x="260" y="0" width="120" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="18657b97-09da-4ad4-b37c-8b15c6fce4c9"/>
 				<textElement textAlignment="Left">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Setor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="380" y="0" width="172" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="1337048e-2657-456c-abfe-c984e8335124"/>
+				<textElement textAlignment="Left">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total de Impressões]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="20">
 			<line>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="19" width="555" height="1" uuid="5afbc942-1abf-495b-af1a-0ff7df449779"/>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="19" width="555" height="1" uuid="be066e09-56b2-4aa8-909b-cae76a18a055"/>
 			</line>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="FixRelativeToBottom" x="0" y="0" width="185" height="20" uuid="0df1ce23-8e97-4e5e-a5ab-315f77baedf9"/>
+				<reportElement x="0" y="0" width="80" height="20" uuid="48efb202-099f-43a7-89f6-531c9de91da0"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="185" y="0" width="185" height="20" uuid="9c06155b-7e12-442a-a686-9123f6ae1fbe"/>
+				<reportElement x="80" y="0" width="180" height="20" uuid="8d1457d0-3ecf-4e05-88dc-7f95f8d526dd"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{impressora}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="370" y="0" width="185" height="20" uuid="1f07f736-c1d7-497a-b97e-61fad60c8293"/>
+				<reportElement x="260" y="0" width="120" height="20" uuid="b3db971c-201b-49fa-8d09-d7b728fe3b30"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{setor_id}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{setor}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="380" y="0" width="172" height="20" uuid="bd1f88a7-6d89-49ad-93d9-48d20ac2269f"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total_impressao}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -98,16 +117,16 @@
 	<pageFooter>
 		<band height="17">
 			<textField>
-				<reportElement mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#E6E6E6" uuid="9261c2be-ed0f-4a70-8b5d-97abdb657ad8"/>
+				<reportElement mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#E6E6E6" uuid="90f95794-fd41-485c-ba05-1dbe94077717"/>
 				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA["Pág "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
-				<reportElement mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6" uuid="fac3fab3-6c30-4b38-b1da-8cb64e29a690"/>
+				<reportElement mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6" uuid="caf6181e-0276-47e5-b277-a67d32960d96"/>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd MMM yyyy, hh:mm:ss">
-				<reportElement x="0" y="4" width="185" height="13" uuid="56c5b247-09e2-4bd9-a354-494aadbcb911"/>
+				<reportElement x="0" y="4" width="130" height="13" uuid="dd603721-8acb-47a2-a9a1-5f6a3a58b981"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 		</band>

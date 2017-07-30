@@ -19,8 +19,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperCompileManager;
 import print.capau.dao.ConnectionFactory;
 import print.capau.dao.ImpressoraDao;
 import print.capau.dao.SetorDao;
