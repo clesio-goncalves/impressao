@@ -33,8 +33,6 @@
 						<ul class="dropdown-menu" role="menu">
 							<li><a href="novoUsuario">Usuário</a></li>
 							<li><a href="novoSetor">Setor</a></li>
-							<li class="divider"></li>
-							<li><a href="#">One more separated link</a></li>
 						</ul></li>
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown" role="button" aria-expanded="false">Relatórios
@@ -46,8 +44,6 @@
 							<li><a href="listaImpressoras">Impressoras</a></li>
 							<li class="divider"></li>
 							<li><a href="listaImpressoes">Impressão</a></li>
-							<li class="divider"></li>
-							<li><a href="#">One more separated link</a></li>
 						</ul></li>
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown" role="button" aria-expanded="false">Configuração

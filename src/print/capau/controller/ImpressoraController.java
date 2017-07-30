@@ -1,8 +1,15 @@
 package print.capau.controller;
 
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
@@ -12,9 +19,13 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import print.capau.dao.ConnectionFactory;
 import print.capau.dao.ImpressoraDao;
 import print.capau.dao.SetorDao;
 import print.capau.modelo.Impressora;
+import print.capau.relatorio.GeradorRelatorio;
 
 @Transactional
 @Controller
@@ -63,6 +74,26 @@ public class ImpressoraController {
 
 		dao.altera(impressora);
 		return "redirect:listaImpressoras";
+	}
+
+	@RequestMapping("relatorioImpressora")
+	public void relatorio(HttpServletRequest request, HttpServletResponse response) {
+
+		try {
+
+			String nomeArquivo = request.getServletContext().getRealPath("/resources/relatorio/impressoras.jasper");
+			Map<String, Object> parametros = new HashMap<String, Object>();
+			Connection connection = new ConnectionFactory().getConnection();
+
+			GeradorRelatorio gerador = new GeradorRelatorio(nomeArquivo, parametros, connection);
+			gerador.geraPDFParaOutputStream(response.getOutputStream());
+
+			connection.close();
+
+		} catch (SQLException | IOException e) {
+			throw new RuntimeException(e);
+		}
+
 	}
 
 }

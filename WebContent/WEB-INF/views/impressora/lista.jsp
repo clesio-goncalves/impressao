@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -59,6 +60,13 @@
 				</table>
 			</div>
 		</div>
+
+		<div align="center">
+			<!-- PDF -->
+			<a href="relatorioImpressora" class="btn btn-primary"><span
+				class="glyphicon"></span> PDF</a>
+		</div>
+
 	</div>
 </div>
 

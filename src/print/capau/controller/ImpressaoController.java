@@ -257,7 +257,7 @@ public class ImpressaoController {
 			dao_configuracao.altera(configuracao);
 
 		} catch (IOException e) {
-			e.printStackTrace();
+			throw new RuntimeException(e);
 		}
 	}
 
