@@ -10,6 +10,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
@@ -23,6 +24,7 @@ import print.capau.dao.ConnectionFactory;
 import print.capau.dao.ImpressoraDao;
 import print.capau.dao.SetorDao;
 import print.capau.modelo.Impressora;
+import print.capau.modelo.Usuario;
 import print.capau.relatorio.GeradorRelatorio;
 
 @Transactional
@@ -75,13 +77,21 @@ public class ImpressoraController {
 	}
 
 	@RequestMapping("relatorioImpressora")
-	public void relatorio(HttpServletRequest request, HttpServletResponse response) {
+	public void relatorio(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 
 		try {
 
 			String nomeArquivo = request.getServletContext().getRealPath("/resources/relatorio/impressoras.jasper");
 			Map<String, Object> parametros = new HashMap<String, Object>();
 			Connection connection = new ConnectionFactory().getConnection();
+
+			// Pego o usuário da sessão
+			Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
+
+			parametros.put("imagem_logo",
+					request.getServletContext().getRealPath("/resources/imagens/relatorio_impressoras.png"));
+			parametros.put("nome_usuario", usuario.getNome());
+			parametros.put("login_usuario", usuario.getUsuario());
 
 			GeradorRelatorio gerador = new GeradorRelatorio(nomeArquivo, parametros, connection);
 			gerador.geraPDFParaOutputStream(response.getOutputStream());

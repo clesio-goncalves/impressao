@@ -97,15 +97,12 @@
 		</div>
 	</div>
 
-	<div>
+	<div align="center">
 		<a href="novoUsuario" class="btn btn-primary btn-lg"><span
 			class="glyphicon glyphicon-plus"></span> Cadastrar</a>
-
-		<div align="center">
-			<!-- PDF -->
-			<a href="relatorioImpressora" class="btn btn-danger"><span
-				class="glyphicon glyphicon-file"></span> Relatório PDF</a>
-		</div>
+		<!-- PDF -->
+		<a href="relatorioUsuario" class="btn btn-danger btn-lg"><span
+			class="glyphicon glyphicon-file"></span> Relatório PDF</a>
 	</div>
 </div>
 

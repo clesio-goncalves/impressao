@@ -14,3 +14,9 @@ SELECT u.id, u.nome, u.usuario, u.perfil, u.ativo, s.nome AS setor
 FROM Usuario AS u
 INNER JOIN Setor AS s ON s.id = u.setor_id
 ORDER BY u.nome;
+
+/* Relatório de setores */
+
+SELECT id, nome
+FROM Setor
+ORDER BY nome;

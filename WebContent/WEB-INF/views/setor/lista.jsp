@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -77,8 +78,13 @@
 			</div>
 		</div>
 	</div>
-	<a href="novoSetor" class="btn btn-primary btn-lg"><span
-		class="glyphicon glyphicon-plus"></span> Cadastrar</a>
+	<div align="center">
+		<a href="novoSetor" class="btn btn-primary btn-lg"><span
+			class="glyphicon glyphicon-plus"></span> Cadastrar</a>
+		<!-- PDF -->
+		<a href="relatorioSetor" class="btn btn-danger btn-lg"><span
+			class="glyphicon glyphicon-file"></span> Relatório PDF</a>
+	</div>
 </div>
 
 <script type="text/javascript" src="resources/js/jquery.dataTables.js"></script>

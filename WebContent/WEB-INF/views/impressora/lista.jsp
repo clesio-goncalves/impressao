@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Vincular Impressora</title>
+<title>Listar Impressoras</title>
 <link rel="stylesheet" type="text/css"
 	href="resources/css/jquery.dataTables.css">
 
@@ -64,7 +64,7 @@
 
 	<div align="center">
 		<!-- PDF -->
-		<a href="relatorioImpressora" class="btn btn-danger"><span
+		<a href="relatorioImpressora" class="btn btn-danger btn-lg"><span
 			class="glyphicon glyphicon-file"></span> Relatório PDF</a>
 	</div>
 </div>
