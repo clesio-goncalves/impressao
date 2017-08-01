@@ -2,21 +2,23 @@
 <!-- Created with Jaspersoft Studio version 6.4.0.final using JasperReports Library version 6.4.1  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="impressoras" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ffb8b25c-5ede-41a0-ba09-48717112045e">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Collection"/>
 	<parameter name="imagem_logo" class="java.lang.String"/>
 	<parameter name="nome_usuario" class="java.lang.String"/>
 	<parameter name="login_usuario" class="java.lang.String"/>
 	<queryString language="SQL">
-		<![CDATA[SELECT im.id, im.nome AS impressora, (SELECT s.nome FROM Setor AS s WHERE s.id = im.setor_id) AS setor, SUM(i.qnt_copias * i.qnt_paginas) AS total_impressao
-FROM Impressao AS i
-INNER JOIN Impressora AS im ON im.id = i.impressora_id
-GROUP BY im.id
-ORDER BY total_impressao DESC]]>
+		<![CDATA[]]>
 	</queryString>
 	<field name="id" class="java.lang.Long"/>
-	<field name="impressora" class="java.lang.String"/>
-	<field name="setor" class="java.lang.String"/>
-	<field name="total_impressao" class="java.lang.Long"/>
+	<field name="nome" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="setor.nome" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="total_impressao" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -165,7 +167,7 @@ ORDER BY total_impressao DESC]]>
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{impressora}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="290" y="0" width="140" height="25" uuid="20cfe59a-537f-485e-a2d6-d01e805731ed">
@@ -175,7 +177,7 @@ ORDER BY total_impressao DESC]]>
 				<textElement verticalAlignment="Middle">
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{setor}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{setor.nome}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="430" y="0" width="130" height="25" uuid="da53e691-51a2-4049-a814-f9cd2fcbd407">

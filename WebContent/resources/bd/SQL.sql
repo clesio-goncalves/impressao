@@ -1,6 +1,9 @@
 
 /* Relatório de impressoras */
 
+SELECT i.id, i.nome, (SELECT s FROM Setor AS s WHERE s.id = i.setor_id) AS setor
+from Impressora AS i;
+
 SELECT im.id, im.nome AS impressora, (SELECT s.nome FROM Setor AS s WHERE s.id = im.setor_id) AS setor, SUM(i.qnt_copias * i.qnt_paginas) AS total_impressao
 FROM Impressao AS i
 INNER JOIN Impressora AS im ON im.id = i.impressora_id

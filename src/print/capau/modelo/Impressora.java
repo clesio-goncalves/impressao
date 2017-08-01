@@ -22,7 +22,7 @@ public class Impressora {
 	private String nome;
 
 	@ManyToOne
-	private Setor setor;
+	private Setor setor = new Setor();
 
 	@Transient
 	private Long total_impressao;

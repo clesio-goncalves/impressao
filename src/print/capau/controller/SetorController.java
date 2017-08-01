@@ -1,9 +1,7 @@
 package print.capau.controller;
 
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import print.capau.dao.ConnectionFactory;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import print.capau.dao.SetorDao;
 import print.capau.modelo.Setor;
 import print.capau.modelo.Usuario;
@@ -27,6 +25,8 @@ import print.capau.relatorio.GeradorRelatorio;
 @Transactional
 @Controller
 public class SetorController {
+
+	private List<Setor> lista_setores;
 
 	@Autowired
 	SetorDao dao;
@@ -50,7 +50,8 @@ public class SetorController {
 
 	@RequestMapping("listaSetores")
 	public String lista(Model model) {
-		model.addAttribute("setores", dao.lista());
+		lista_setores = dao.lista();
+		model.addAttribute("setores", lista_setores);
 		return "setor/lista";
 	}
 
@@ -86,28 +87,22 @@ public class SetorController {
 	@RequestMapping("relatorioSetor")
 	public void relatorio(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 
-		try {
+		String nomeRelatorio = "Relatório de Setores";
+		String nomeArquivo = request.getServletContext().getRealPath("/resources/relatorio/setores.jasper");
+		Map<String, Object> parametros = new HashMap<String, Object>();
+		JRBeanCollectionDataSource relatorio = new JRBeanCollectionDataSource(lista_setores);
 
-			String nomeArquivo = request.getServletContext().getRealPath("/resources/relatorio/setores.jasper");
-			Map<String, Object> parametros = new HashMap<String, Object>();
-			Connection connection = new ConnectionFactory().getConnection();
+		// Pego o usuário da sessão
+		Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
 
-			// Pego o usuário da sessão
-			Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
+		// Parâmetros do relatório
+		parametros.put("imagem_logo",
+				request.getServletContext().getRealPath("/resources/imagens/relatorio_setores.png"));
+		parametros.put("nome_usuario", usuario.getNome());
+		parametros.put("login_usuario", usuario.getUsuario());
 
-			parametros.put("imagem_logo",
-					request.getServletContext().getRealPath("/resources/imagens/relatorio_setores.png"));
-			parametros.put("nome_usuario", usuario.getNome());
-			parametros.put("login_usuario", usuario.getUsuario());
-
-			GeradorRelatorio gerador = new GeradorRelatorio(nomeArquivo, parametros, connection);
-			gerador.geraPDFParaOutputStream(response.getOutputStream());
-
-			connection.close();
-
-		} catch (SQLException | IOException e) {
-			throw new RuntimeException(e);
-		}
+		GeradorRelatorio gerador = new GeradorRelatorio(nomeRelatorio, nomeArquivo, parametros, relatorio);
+		gerador.geraPDFParaOutputStream2(response);
 
 	}
 

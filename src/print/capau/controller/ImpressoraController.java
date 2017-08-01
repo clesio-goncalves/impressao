@@ -1,9 +1,5 @@
 package print.capau.controller;
 
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import print.capau.dao.ConnectionFactory;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import print.capau.dao.ImpressoraDao;
 import print.capau.dao.SetorDao;
 import print.capau.modelo.Impressora;
@@ -31,25 +27,24 @@ import print.capau.relatorio.GeradorRelatorio;
 @Controller
 public class ImpressoraController {
 
+	private List<Impressora> lista_impressoras;
+
 	@Autowired
 	ImpressoraDao dao;
 
 	@Autowired
 	SetorDao dao_setor;
 
-	List<Impressora> lista;
-
 	@RequestMapping("listaImpressoras")
 	public String lista(Model model) {
 
-		lista = new ArrayList<Impressora>();
-		lista = dao.lista();
+		lista_impressoras = dao.lista();
 
-		for (Impressora impressora : lista) {
+		for (Impressora impressora : lista_impressoras) {
 			impressora.setTotal_impressao(dao.qntImpressao(impressora));
 		}
 
-		model.addAttribute("impressoras", lista);
+		model.addAttribute("impressoras", lista_impressoras);
 		return "impressora/lista";
 	}
 
@@ -79,28 +74,30 @@ public class ImpressoraController {
 	@RequestMapping("relatorioImpressora")
 	public void relatorio(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 
-		try {
+		String nomeRelatorio = "Relatório de Impressoras";
+		String nomeArquivo = request.getServletContext().getRealPath("/resources/relatorio/impressoras.jasper");
+		Map<String, Object> parametros = new HashMap<String, Object>();
+		JRBeanCollectionDataSource relatorio = new JRBeanCollectionDataSource(lista_impressoras);
 
-			String nomeArquivo = request.getServletContext().getRealPath("/resources/relatorio/impressoras.jasper");
-			Map<String, Object> parametros = new HashMap<String, Object>();
-			Connection connection = new ConnectionFactory().getConnection();
+		System.out.println(
+				"================================================================================================");
 
-			// Pego o usuário da sessão
-			Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
-
-			parametros.put("imagem_logo",
-					request.getServletContext().getRealPath("/resources/imagens/relatorio_impressoras.png"));
-			parametros.put("nome_usuario", usuario.getNome());
-			parametros.put("login_usuario", usuario.getUsuario());
-
-			GeradorRelatorio gerador = new GeradorRelatorio(nomeArquivo, parametros, connection);
-			gerador.geraPDFParaOutputStream(response.getOutputStream());
-
-			connection.close();
-
-		} catch (SQLException | IOException e) {
-			throw new RuntimeException(e);
+		for (Impressora impressora : lista_impressoras) {
+			System.out.println("Impressora: " + impressora.getNome() + ". Setor: " + impressora.getSetor()
+					+ ". Total impressao: " + impressora.getTotal_impressao());
 		}
+
+		// Pego o usuário da sessão
+		Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
+
+		// Parâmetros do relatório
+		parametros.put("imagem_logo",
+				request.getServletContext().getRealPath("/resources/imagens/relatorio_impressoras.png"));
+		parametros.put("nome_usuario", usuario.getNome());
+		parametros.put("login_usuario", usuario.getUsuario());
+
+		GeradorRelatorio gerador = new GeradorRelatorio(nomeRelatorio, nomeArquivo, parametros, relatorio);
+		gerador.geraPDFParaOutputStream(response);
 
 	}
 

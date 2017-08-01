@@ -1,6 +1,5 @@
 package print.capau.controller;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -113,6 +112,7 @@ public class UsuarioController {
 
 		try {
 
+			String nomeRelatorio = "Relatório de Usuários";
 			String nomeArquivo = request.getServletContext().getRealPath("/resources/relatorio/usuarios.jasper");
 			Map<String, Object> parametros = new HashMap<String, Object>();
 			Connection connection = new ConnectionFactory().getConnection();
@@ -125,12 +125,12 @@ public class UsuarioController {
 			parametros.put("nome_usuario", usuario.getNome());
 			parametros.put("login_usuario", usuario.getUsuario());
 
-			GeradorRelatorio gerador = new GeradorRelatorio(nomeArquivo, parametros, connection);
-			gerador.geraPDFParaOutputStream(response.getOutputStream());
+			GeradorRelatorio gerador = new GeradorRelatorio(nomeRelatorio, nomeArquivo, parametros, connection);
+			gerador.geraPDFParaOutputStream(response);
 
 			connection.close();
 
-		} catch (SQLException | IOException e) {
+		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
 

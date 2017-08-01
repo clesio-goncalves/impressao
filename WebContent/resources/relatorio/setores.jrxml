@@ -2,14 +2,12 @@
 <!-- Created with Jaspersoft Studio version 6.4.0.final using JasperReports Library version 6.4.1  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="setores" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ffb8b25c-5ede-41a0-ba09-48717112045e">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Collection"/>
 	<parameter name="imagem_logo" class="java.lang.String"/>
 	<parameter name="nome_usuario" class="java.lang.String"/>
 	<parameter name="login_usuario" class="java.lang.String"/>
 	<queryString language="SQL">
-		<![CDATA[SELECT id, nome
-FROM Setor
-ORDER BY nome]]>
+		<![CDATA[]]>
 	</queryString>
 	<field name="id" class="java.lang.Long"/>
 	<field name="nome" class="java.lang.String"/>

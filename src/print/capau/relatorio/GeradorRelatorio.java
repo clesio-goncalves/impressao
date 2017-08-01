@@ -1,43 +1,86 @@
 package print.capau.relatorio;
 
-import java.io.OutputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.util.Map;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRExporter;
-import net.sf.jasperreports.engine.JRExporterParameter;
+import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 public class GeradorRelatorio {
 
+	private String nomeRelatorio;
 	private String nomeArquivo;
 	private Map<String, Object> parametros;
 	private Connection connection;
+	private JRBeanCollectionDataSource relatorio;
 
-	public GeradorRelatorio(String nomeArquivo, Map<String, Object> parametros, Connection connection) {
+	public GeradorRelatorio(String nomeRelatorio, String nomeArquivo, Map<String, Object> parametros,
+			Connection connection) {
+		this.nomeRelatorio = nomeRelatorio;
 		this.nomeArquivo = nomeArquivo;
 		this.parametros = parametros;
 		this.connection = connection;
 	}
 
-	public void geraPDFParaOutputStream(OutputStream outputStream) {
+	public GeradorRelatorio(String nomeRelatorio, String nomeArquivo, Map<String, Object> parametros,
+			JRBeanCollectionDataSource relatorio) {
+		this.nomeRelatorio = nomeRelatorio;
+		this.nomeArquivo = nomeArquivo;
+		this.parametros = parametros;
+		this.relatorio = relatorio;
+	}
+
+	public void geraPDFParaOutputStream(HttpServletResponse response) {
 
 		try {
 
 			// preenche relatorio
 			JasperPrint jasperPrint = JasperFillManager.fillReport(this.nomeArquivo, this.parametros, this.connection);
 
-			// exporta para pdf
-			JRExporter exporter = new JRPdfExporter();
-			exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
-			exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, outputStream);
-			exporter.exportReport();
+			response.setContentType("application/pdf");
+			response.addHeader("Content-disposition", "attachment; filename=\"" + this.nomeRelatorio + "\"");
 
-		} catch (JRException e) {
+			// exporta para pdf
+			JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
+
+			ServletOutputStream responseStream = response.getOutputStream();
+			responseStream.flush();
+			responseStream.close();
+
+		} catch (JRException | IOException e) {
 			throw new RuntimeException(e);
+
+		}
+
+	}
+
+	public void geraPDFParaOutputStream2(HttpServletResponse response) {
+
+		try {
+
+			// preenche relatorio
+			JasperPrint jasperPrint = JasperFillManager.fillReport(this.nomeArquivo, this.parametros, this.relatorio);
+
+			response.setContentType("application/pdf");
+			response.addHeader("Content-disposition", "attachment; filename=\"" + this.nomeRelatorio + "\"");
+
+			// exporta para pdf
+			JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
+
+			ServletOutputStream responseStream = response.getOutputStream();
+			responseStream.flush();
+			responseStream.close();
+
+		} catch (JRException | IOException e) {
+			throw new RuntimeException(e);
+
 		}
 
 	}
