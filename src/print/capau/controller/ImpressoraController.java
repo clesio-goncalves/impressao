@@ -79,14 +79,6 @@ public class ImpressoraController {
 		Map<String, Object> parametros = new HashMap<String, Object>();
 		JRBeanCollectionDataSource relatorio = new JRBeanCollectionDataSource(lista_impressoras);
 
-		System.out.println(
-				"================================================================================================");
-
-		for (Impressora impressora : lista_impressoras) {
-			System.out.println("Impressora: " + impressora.getNome() + ". Setor: " + impressora.getSetor()
-					+ ". Total impressao: " + impressora.getTotal_impressao());
-		}
-
 		// Pego o usuário da sessão
 		Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
 

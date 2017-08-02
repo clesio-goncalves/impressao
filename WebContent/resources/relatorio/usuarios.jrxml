@@ -24,9 +24,9 @@ ORDER BY u.nome]]>
 	<field name="id" class="java.lang.Long"/>
 	<field name="nome" class="java.lang.String"/>
 	<field name="usuario" class="java.lang.String"/>
-	<field name="perfil" class="java.lang.String"/>
+	<field name="perfil" class="java.lang.Enum"/>
 	<field name="ativo" class="java.lang.Boolean"/>
-	<field name="setor" class="java.lang.String"/>
+	<field name="setor.nome" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -208,7 +208,7 @@ ORDER BY u.nome]]>
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{setor}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{setor.nome}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement x="340" y="1" width="159" height="25" uuid="6d37d078-3225-4552-b201-4cc1854eed86">

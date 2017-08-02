@@ -1,8 +1,7 @@
 package print.capau.controller;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import print.capau.dao.ConnectionFactory;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import print.capau.dao.SetorDao;
 import print.capau.dao.UsuarioDao;
 import print.capau.modelo.Perfil;
@@ -27,6 +26,8 @@ import print.capau.relatorio.GeradorRelatorio;
 @Transactional
 @Controller
 public class UsuarioController {
+
+	private List<Usuario> lista_usuarios;
 
 	@Autowired
 	UsuarioDao dao;
@@ -63,7 +64,8 @@ public class UsuarioController {
 
 	@RequestMapping("listaUsuarios")
 	public String lista(Model model) {
-		model.addAttribute("usuarios", dao.lista());
+		lista_usuarios = dao.lista();
+		model.addAttribute("usuarios", lista_usuarios);
 		return "usuario/lista";
 	}
 
@@ -110,29 +112,21 @@ public class UsuarioController {
 	@RequestMapping("relatorioUsuario")
 	public void relatorio(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 
-		try {
+		String nomeRelatorio = "Relatório de Usuários";
+		String nomeArquivo = request.getServletContext().getRealPath("/resources/relatorio/usuarios.jasper");
+		Map<String, Object> parametros = new HashMap<String, Object>();
+		JRBeanCollectionDataSource relatorio = new JRBeanCollectionDataSource(lista_usuarios);
 
-			String nomeRelatorio = "Relatório de Usuários";
-			String nomeArquivo = request.getServletContext().getRealPath("/resources/relatorio/usuarios.jasper");
-			Map<String, Object> parametros = new HashMap<String, Object>();
-			Connection connection = new ConnectionFactory().getConnection();
+		// Pego o usuário da sessão
+		Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
 
-			// Pego o usuário da sessão
-			Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
+		parametros.put("imagem_logo",
+				request.getServletContext().getRealPath("/resources/imagens/relatorio_usuarios.png"));
+		parametros.put("nome_usuario", usuario.getNome());
+		parametros.put("login_usuario", usuario.getUsuario());
 
-			parametros.put("imagem_logo",
-					request.getServletContext().getRealPath("/resources/imagens/relatorio_usuarios.png"));
-			parametros.put("nome_usuario", usuario.getNome());
-			parametros.put("login_usuario", usuario.getUsuario());
-
-			GeradorRelatorio gerador = new GeradorRelatorio(nomeRelatorio, nomeArquivo, parametros, connection);
-			gerador.geraPDFParaOutputStream(response);
-
-			connection.close();
-
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-		}
+		GeradorRelatorio gerador = new GeradorRelatorio(nomeRelatorio, nomeArquivo, parametros, relatorio);
+		gerador.geraPDFParaOutputStream(response);
 
 	}
 

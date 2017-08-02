@@ -35,8 +35,4 @@ public class Setor {
 		this.nome = nome;
 	}
 
-	public String toString() {
-		return this.id.toString();
-	}
-
 }

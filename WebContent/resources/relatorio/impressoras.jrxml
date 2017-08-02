@@ -10,15 +10,9 @@
 		<![CDATA[]]>
 	</queryString>
 	<field name="id" class="java.lang.Long"/>
-	<field name="nome" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="setor.nome" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="total_impressao" class="java.lang.Long">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
+	<field name="nome" class="java.lang.String"/>
+	<field name="setor.nome" class="java.lang.String"/>
+	<field name="total_impressao" class="java.lang.Long"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -169,7 +163,7 @@
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField isBlankWhenNull="false">
 				<reportElement x="290" y="0" width="140" height="25" uuid="20cfe59a-537f-485e-a2d6-d01e805731ed">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
@@ -177,7 +171,7 @@
 				<textElement verticalAlignment="Middle">
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{setor.nome}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{setor.nome} == null ? "Não informado" : $F{setor.nome}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="430" y="0" width="130" height="25" uuid="da53e691-51a2-4049-a814-f9cd2fcbd407">

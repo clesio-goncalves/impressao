@@ -24,7 +24,7 @@ public class SetorDao {
 	}
 
 	public List<Setor> lista() {
-		return manager.createQuery("select s from Setor s order by s.nome").getResultList();
+		return manager.createQuery("select s from Setor s").getResultList();
 	}
 
 	public Setor buscaPorId(Long id) {

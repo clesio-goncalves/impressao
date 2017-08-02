@@ -102,7 +102,7 @@ public class SetorController {
 		parametros.put("login_usuario", usuario.getUsuario());
 
 		GeradorRelatorio gerador = new GeradorRelatorio(nomeRelatorio, nomeArquivo, parametros, relatorio);
-		gerador.geraPDFParaOutputStream2(response);
+		gerador.geraPDFParaOutputStream(response);
 
 	}
 

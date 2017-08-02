@@ -1,7 +1,6 @@
 package print.capau.relatorio;
 
 import java.io.IOException;
-import java.sql.Connection;
 import java.util.Map;
 
 import javax.servlet.ServletOutputStream;
@@ -18,16 +17,7 @@ public class GeradorRelatorio {
 	private String nomeRelatorio;
 	private String nomeArquivo;
 	private Map<String, Object> parametros;
-	private Connection connection;
 	private JRBeanCollectionDataSource relatorio;
-
-	public GeradorRelatorio(String nomeRelatorio, String nomeArquivo, Map<String, Object> parametros,
-			Connection connection) {
-		this.nomeRelatorio = nomeRelatorio;
-		this.nomeArquivo = nomeArquivo;
-		this.parametros = parametros;
-		this.connection = connection;
-	}
 
 	public GeradorRelatorio(String nomeRelatorio, String nomeArquivo, Map<String, Object> parametros,
 			JRBeanCollectionDataSource relatorio) {
@@ -38,30 +28,6 @@ public class GeradorRelatorio {
 	}
 
 	public void geraPDFParaOutputStream(HttpServletResponse response) {
-
-		try {
-
-			// preenche relatorio
-			JasperPrint jasperPrint = JasperFillManager.fillReport(this.nomeArquivo, this.parametros, this.connection);
-
-			response.setContentType("application/pdf");
-			response.addHeader("Content-disposition", "attachment; filename=\"" + this.nomeRelatorio + "\"");
-
-			// exporta para pdf
-			JasperExportManager.exportReportToPdfStream(jasperPrint, response.getOutputStream());
-
-			ServletOutputStream responseStream = response.getOutputStream();
-			responseStream.flush();
-			responseStream.close();
-
-		} catch (JRException | IOException e) {
-			throw new RuntimeException(e);
-
-		}
-
-	}
-
-	public void geraPDFParaOutputStream2(HttpServletResponse response) {
 
 		try {
 
