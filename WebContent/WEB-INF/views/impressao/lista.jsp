@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -105,6 +106,12 @@
 				</div>
 			</div>
 		</div>
+	</div>
+
+	<div align="center">
+		<!-- PDF -->
+		<a href="relatorioImpressao" class="btn btn-danger btn-lg"><span
+			class="glyphicon glyphicon-file"></span> Relatório PDF</a>
 	</div>
 </div>
 

@@ -7,11 +7,14 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +23,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import print.capau.dao.ConfiguracaoDao;
 import print.capau.dao.EstacaoDao;
 import print.capau.dao.ImpressaoDao;
@@ -29,12 +33,15 @@ import print.capau.modelo.Configuracao;
 import print.capau.modelo.Estacao;
 import print.capau.modelo.Impressao;
 import print.capau.modelo.Impressora;
+import print.capau.modelo.Usuario;
 import print.capau.modelo.UsuarioPC;
+import print.capau.relatorio.GeradorRelatorio;
 
 @Transactional
 @Controller
 public class ImpressaoController {
 
+	private List<Impressao> lista_impressoes;
 	private List<String> linhas_arquivo;
 	private Impressao impressao;
 	private Impressora impressora;
@@ -43,8 +50,6 @@ public class ImpressaoController {
 	private boolean boleano;
 	private Long estacao_id;
 	private String data_inicial, data_final;
-
-	// ---
 	private Configuracao configuracao = new Configuracao();
 	private int indice, ultima_linha, tmp_ultima_linha;
 	private int total_linhas;
@@ -75,9 +80,11 @@ public class ImpressaoController {
 			if (id == null) {
 				// atualizar();
 				atualizacao_geral();
-				model.addAttribute("impressoes", dao.lista());
+				lista_impressoes = dao.lista();
+				model.addAttribute("impressoes", lista_impressoes);
 			} else {
-				model.addAttribute("impressoes", dao.buscaImpressaoPorImpressora(id));
+				lista_impressoes = dao.buscaImpressaoPorImpressora(id);
+				model.addAttribute("impressoes", lista_impressoes);
 			}
 
 			model.addAttribute("impressoras", dao_impressora.lista());
@@ -142,7 +149,9 @@ public class ImpressaoController {
 			impressao.getUsuarioPC().setNome(request.getParameter("nome_usuario"));
 		}
 
-		model.addAttribute("impressoes", dao.buscaImpressao(impressao));
+		lista_impressoes = dao.buscaImpressao(impressao); // Sempre possuira a instancia mais recente da lista de
+															// impressoes
+		model.addAttribute("impressoes", lista_impressoes);
 		model.addAttribute("impressoras", dao_impressora.lista());
 		return "impressao/tabela";
 	}
@@ -168,7 +177,7 @@ public class ImpressaoController {
 				ultima_linha = 2;
 			}
 
-			System.out.println("Indice do ultimo arquivo: " + indice);
+			// System.out.println("Indice do ultimo arquivo: " + indice);
 
 			// Percorre todos os arquivos desde o último arquivo atualizado
 			for (int i = indice; i < diretorio.size(); i++) {
@@ -183,18 +192,19 @@ public class ImpressaoController {
 				nome_arquivo = arquivo.getFileName().toString();
 				total_linhas = linhas_arquivo.size();
 
-				System.out.println("Arquivo " + i + ": " + nome_arquivo + " -> Total de linhas: " + total_linhas);
+				// System.out.println("Arquivo " + i + ": " + nome_arquivo + " -> Total de
+				// linhas: " + total_linhas);
 
-				System.out.println("Última linha: " + ultima_linha);
+				// System.out.println("Última linha: " + ultima_linha);
 
-				System.out.println(
-						"------------------------------------------------------------------------------------------------");
+				// System.out.println(
+				// "------------------------------------------------------------------------------------------------");
 
 				if (ultima_linha < total_linhas) {
 					// Percorre todos as linhas do arquivo a partir da ultima linha
 					for (int j = ultima_linha; j < total_linhas; j++) {
 
-						System.out.println((j + 1) + " - " + linhas_arquivo.get(j));
+						// System.out.println((j + 1) + " - " + linhas_arquivo.get(j));
 
 						String[] dados = linhas_arquivo.get(j).split(",");
 
@@ -247,8 +257,8 @@ public class ImpressaoController {
 				tmp_ultima_linha = ultima_linha;
 				ultima_linha = 2;
 
-				System.out.println(
-						"=======================================================================================================");
+				// System.out.println(
+				// "=======================================================================================================");
 			}
 
 			// Altera o ultimo arquivo e ultima linha no banco de dados
@@ -261,8 +271,31 @@ public class ImpressaoController {
 		}
 	}
 
+	@RequestMapping("relatorioImpressao")
+	public void relatorio(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+
+		String nomeRelatorio = "Relatório de Impressões";
+		String nomeArquivo = request.getServletContext().getRealPath("/resources/relatorio/impressoes.jasper");
+		Map<String, Object> parametros = new HashMap<String, Object>();
+		JRBeanCollectionDataSource relatorio = new JRBeanCollectionDataSource(lista_impressoes);
+
+		// Pego o usuário da sessão
+		Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
+
+		// Parâmetros do relatório
+		parametros.put("imagem_logo",
+				request.getServletContext().getRealPath("/resources/imagens/relatorio_impressoes.png"));
+		parametros.put("nome_usuario", usuario.getNome());
+		parametros.put("login_usuario", usuario.getUsuario());
+
+		GeradorRelatorio gerador = new GeradorRelatorio(nomeRelatorio, nomeArquivo, parametros, relatorio);
+		gerador.geraPDFParaOutputStream(response);
+
+	}
+
 	public String diretorioLogs() {
-		configuracao = dao_configuracao.buscaConfiguracao();
+		configuracao = dao_configuracao.buscaConfiguracao(); // Recebe o nome do diretorio
 		return configuracao.getDiretorio() + "/csv/daily";
 	}
+
 }

@@ -20,7 +20,7 @@
 		<c:forEach var="impressao" items="${impressoes}">
 			<tr>
 				<td><fmt:formatDate value="${impressao.data.time}"
-						pattern="dd-MM-yyyy HH:mm:ss" /></td>
+						pattern="dd/MM/yyyy HH:mm:ss" /></td>
 				<td>${impressao.usuarioPC.nome}</td>
 				<td>${impressao.qnt_paginas}</td>
 				<td>${impressao.qnt_copias}</td>

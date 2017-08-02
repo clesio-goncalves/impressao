@@ -7,6 +7,6 @@ public class CompilaJrxmlParaJasper {
 
 	public static void main(String[] args) throws JRException {
 		JasperCompileManager.compileReportToFile(
-				"/home/clesio/eclipse-workspace/impressao/WebContent/resources/relatorio/impressoras.jrxml");
+				"/home/clesio/eclipse-workspace/impressao/WebContent/resources/relatorio/impressoes.jrxml");
 	}
 }

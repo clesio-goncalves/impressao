@@ -52,7 +52,7 @@
 				<reportElement x="70" y="10" width="485" height="25" uuid="4495e00a-6015-4e97-9151-0faca2d09677">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
-				<textElement verticalAlignment="Middle" markup="none"/>
+				<textElement verticalAlignment="Middle" markup=""/>
 				<textFieldExpression><![CDATA[$P{nome_usuario}]]></textFieldExpression>
 			</textField>
 			<staticText>
@@ -68,7 +68,7 @@
 				<reportElement x="70" y="35" width="485" height="25" uuid="6bb456e9-4545-4548-bf19-249ada98294f">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
-				<textElement verticalAlignment="Middle" markup="none"/>
+				<textElement verticalAlignment="Middle" markup=""/>
 				<textFieldExpression><![CDATA[$P{login_usuario}]]></textFieldExpression>
 			</textField>
 		</band>
@@ -136,10 +136,10 @@
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="26">
+		<band height="25">
 			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 			<rectangle>
-				<reportElement x="0" y="1" width="555" height="25" forecolor="#FFFFFF" backcolor="#CCCCCC" uuid="d74229d8-5f0b-4e90-a0e7-669b355b89e5">
+				<reportElement x="0" y="0" width="555" height="25" forecolor="#FFFFFF" backcolor="#CCCCCC" uuid="d74229d8-5f0b-4e90-a0e7-669b355b89e5">
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
@@ -195,7 +195,7 @@
 					<pen lineWidth="3.0" lineStyle="Solid"/>
 				</graphicElement>
 			</line>
-			<textField pattern="dd MMM yyyy hh:mm:ss a">
+			<textField pattern="dd/MM/yyyy HH:mm:ss">
 				<reportElement x="70" y="0" width="150" height="28" uuid="89f4507a-3803-41fa-8f7f-e7a687bb0593">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
@@ -212,7 +212,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER} + " de"]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField evaluationTime="Report">
 				<reportElement x="530" y="0" width="30" height="28" uuid="ae930a79-a2dd-438a-ae17-19b4cb853c0e">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
