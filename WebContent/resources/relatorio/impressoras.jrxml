@@ -17,7 +17,8 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="85" splitType="Stretch">
+		<band height="150" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 			<image hAlign="Center">
 				<reportElement x="0" y="0" width="555" height="85" uuid="cc6f6fc2-0339-47d6-9c30-3d43e35980ef">
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
@@ -25,22 +26,18 @@
 				</reportElement>
 				<imageExpression><![CDATA[$P{imagem_logo}]]></imageExpression>
 			</image>
-		</band>
-	</title>
-	<pageHeader>
-		<band height="65">
-			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 			<line>
-				<reportElement x="0" y="0" width="555" height="1" uuid="fbc58987-cf28-4298-a656-6fd859fbaa94">
+				<reportElement x="0" y="85" width="555" height="1" uuid="c69be447-2708-448f-8d50-af2ec81a1922">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 				</reportElement>
 				<graphicElement>
 					<pen lineWidth="5.0" lineStyle="Solid"/>
 				</graphicElement>
 			</line>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="10" width="70" height="25" uuid="2d08f23b-d6db-4ace-8eb6-af9788dd8d4a">
+				<reportElement positionType="FixRelativeToBottom" x="0" y="95" width="70" height="25" uuid="4308ae47-6f18-4744-853f-829913798baf">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -49,15 +46,17 @@
 				<text><![CDATA[Usuário:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="70" y="10" width="485" height="25" uuid="4495e00a-6015-4e97-9151-0faca2d09677">
+				<reportElement x="70" y="95" width="485" height="25" uuid="124f7a55-f32d-4c8d-97bd-6d0876b77789">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 				</reportElement>
-				<textElement verticalAlignment="Middle" markup=""/>
+				<textElement verticalAlignment="Middle" markup="none"/>
 				<textFieldExpression><![CDATA[$P{nome_usuario}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="35" width="70" height="25" uuid="555a26d6-6c12-4e07-a148-e9ccff43b873">
+				<reportElement positionType="FixRelativeToBottom" x="0" y="120" width="70" height="25" uuid="bb273190-128e-487c-8925-f41d71dab667">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 				</reportElement>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font isBold="true"/>
@@ -65,14 +64,14 @@
 				<text><![CDATA[Login:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="70" y="35" width="485" height="25" uuid="6bb456e9-4545-4548-bf19-249ada98294f">
+				<reportElement x="70" y="120" width="485" height="25" uuid="f64b3423-6828-4b43-8e5c-d1656a8f158b">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
-				<textElement verticalAlignment="Middle" markup=""/>
+				<textElement verticalAlignment="Middle" markup="none"/>
 				<textFieldExpression><![CDATA[$P{login_usuario}]]></textFieldExpression>
 			</textField>
 		</band>
-	</pageHeader>
+	</title>
 	<columnHeader>
 		<band height="27">
 			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
@@ -145,10 +144,14 @@
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 					<printWhenExpression><![CDATA[new Boolean(($V{REPORT_COUNT}.intValue() % 2) == 0)]]></printWhenExpression>
 				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
 			</rectangle>
 			<textField>
 				<reportElement x="0" y="0" width="70" height="25" uuid="a1b82847-a9f0-46b6-9d29-d6313b58e97a">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
 					<paragraph lineSpacing="1_1_2"/>
@@ -226,7 +229,7 @@
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle"/>
-				<text><![CDATA[Extraído em: ]]></text>
+				<text><![CDATA[Emitido em: ]]></text>
 			</staticText>
 		</band>
 	</pageFooter>

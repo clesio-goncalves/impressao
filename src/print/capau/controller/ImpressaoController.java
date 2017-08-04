@@ -31,6 +31,7 @@ import print.capau.dao.ImpressoraDao;
 import print.capau.dao.UsuarioPCDao;
 import print.capau.modelo.Configuracao;
 import print.capau.modelo.Estacao;
+import print.capau.modelo.Filtros;
 import print.capau.modelo.Impressao;
 import print.capau.modelo.Impressora;
 import print.capau.modelo.Usuario;
@@ -50,6 +51,8 @@ public class ImpressaoController {
 	private boolean boleano;
 	private Long estacao_id;
 	private String data_inicial, data_final;
+
+	private Filtros filtros = new Filtros();
 	private Configuracao configuracao = new Configuracao();
 	private int indice, ultima_linha, tmp_ultima_linha;
 	private int total_linhas;
@@ -98,11 +101,19 @@ public class ImpressaoController {
 	@RequestMapping(value = "filtrarImpressoes", method = RequestMethod.POST)
 	public String filtrar(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
 
+		// Pega todos os parametros da requisição
+		filtros.setData_inicial(request.getParameter("data_inicial"));
+		filtros.setData_final(request.getParameter("data_final"));
+		filtros.setNome_impressora(request.getParameter("nome_impressora"));
+		filtros.setNome_estacao(request.getParameter("nome_estacao"));
+		filtros.setMinimo_impressoes(request.getParameter("qnt_impressoes"));
+		filtros.setNome_usuario(request.getParameter("nome_usuario"));
+
 		// Impressao
 		impressao = new Impressao();
 
 		// Data inicial
-		data_inicial = request.getParameter("data_inicial");
+		data_inicial = filtros.getData_inicial();
 
 		// Se a data inicial não estiver sido informada, será atribuido 01/01/2000
 		if (data_inicial.equals("")) {
@@ -113,7 +124,7 @@ public class ImpressaoController {
 		impressao.setData_inicial(impressao.converteStringParaCalendar(data_inicial, "dd/MM/yyyy"));
 
 		// Data final
-		data_final = request.getParameter("data_final");
+		data_final = filtros.getData_final();
 
 		// Se a data final não estiver sido informada, sera atribuido a data atual do
 		// servidor
@@ -127,25 +138,25 @@ public class ImpressaoController {
 
 		// Impressora
 		// Se a impressora for diferente de qualquer
-		if (!request.getParameter("nome_impressora").equals("Qualquer")) {
+		if (!filtros.getNome_impressora().equals("Qualquer")) {
 			impressao.getImpressora().setNome(request.getParameter("nome_impressora"));
 		}
 
 		// Estação
 		// Se for informada a estação
-		if (!request.getParameter("nome_estacao").equals("")) {
+		if (!filtros.getNome_estacao().equals("")) {
 			impressao.getEstacao().setNome(request.getParameter("nome_estacao"));
 		}
 
 		// Minimo de Impressões
 		// Se for informada a quantidade minima de impressoes
-		if (!request.getParameter("qnt_impressoes").equals("")) {
+		if (!filtros.getMinimo_impressoes().equals("")) {
 			impressao.setQnt_impressoes(Integer.parseInt(request.getParameter("qnt_impressoes")));
 		}
 
 		// Usuário
 		// Se for informado o usuário
-		if (!request.getParameter("nome_usuario").equals("")) {
+		if (!filtros.getNome_usuario().equals("")) {
 			impressao.getUsuarioPC().setNome(request.getParameter("nome_usuario"));
 		}
 
@@ -285,8 +296,18 @@ public class ImpressaoController {
 		// Parâmetros do relatório
 		parametros.put("imagem_logo",
 				request.getServletContext().getRealPath("/resources/imagens/relatorio_impressoes.png"));
-		parametros.put("nome_usuario", usuario.getNome());
+
+		parametros.put("nome_completo_usuario", usuario.getNome());
 		parametros.put("login_usuario", usuario.getUsuario());
+
+		parametros.put("data_inicial", filtros.getData_inicial());
+		parametros.put("data_final", filtros.getData_final());
+		parametros.put("nome_impressora", filtros.getNome_impressora());
+		parametros.put("nome_estacao", filtros.getNome_estacao());
+		parametros.put("minimo_impressoes", filtros.getMinimo_impressoes());
+		parametros.put("nome_usuario", filtros.getNome_usuario());
+
+		//
 
 		GeradorRelatorio gerador = new GeradorRelatorio(nomeRelatorio, nomeArquivo, parametros, relatorio);
 		gerador.geraPDFParaOutputStream(response);
