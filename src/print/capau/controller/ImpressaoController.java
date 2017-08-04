@@ -51,6 +51,7 @@ public class ImpressaoController {
 	private boolean boleano;
 	private Long estacao_id;
 	private String data_inicial, data_final;
+	private Calendar calendar;
 
 	private Filtros filtros = new Filtros();
 	private Configuracao configuracao = new Configuracao();
@@ -129,12 +130,15 @@ public class ImpressaoController {
 		// Se a data final não estiver sido informada, sera atribuido a data atual do
 		// servidor
 		if (data_final.equals("")) {
-			Calendar calendar = Calendar.getInstance();
+			calendar = Calendar.getInstance();
 			data_final = impressao.formataData(calendar, "dd/MM/yyyy");
 		}
 
-		// Converte a data final
-		impressao.setData_final(impressao.converteStringParaCalendar(data_final, "dd/MM/yyyy"));
+		// Converte a data final + 1 dia (Porque não tava pegando a data final do
+		// filtro)
+		calendar = impressao.converteStringParaCalendar(data_final, "dd/MM/yyyy");
+		calendar.add(calendar.DAY_OF_MONTH, +1);
+		impressao.setData_final(calendar);
 
 		// Impressora
 		// Se a impressora for diferente de qualquer

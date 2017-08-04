@@ -29,9 +29,9 @@
 
 						<!-- DATA FINAL -->
 						<div class="form-group col-sm-6">
-							<label for="data_final">Data final (Não inclusa na
-								listagem)</label> <input type="text" class="form-control data"
-								name="data_final" id="data_final" data-mask="99/99/9999">
+							<label for="data_final">Data final</label> <input type="text"
+								class="form-control data" name="data_final" id="data_final"
+								data-mask="99/99/9999">
 						</div>
 					</div>
 

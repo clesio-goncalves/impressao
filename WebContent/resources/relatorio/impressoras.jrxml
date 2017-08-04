@@ -13,11 +13,15 @@
 	<field name="nome" class="java.lang.String"/>
 	<field name="setor.nome" class="java.lang.String"/>
 	<field name="total_impressao" class="java.lang.Long"/>
+	<variable name="total_geral_impressoes" class="java.lang.Long" calculation="Sum">
+		<variableExpression><![CDATA[$F{total_impressao}]]></variableExpression>
+		<initialValueExpression><![CDATA[new Long(0)]]></initialValueExpression>
+	</variable>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="150" splitType="Stretch">
+		<band height="150">
 			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 			<image hAlign="Center">
 				<reportElement x="0" y="0" width="555" height="85" uuid="cc6f6fc2-0339-47d6-9c30-3d43e35980ef">
@@ -177,7 +181,7 @@
 				<textFieldExpression><![CDATA[$F{setor.nome} == null ? "Não informado" : $F{setor.nome}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="430" y="0" width="130" height="25" uuid="da53e691-51a2-4049-a814-f9cd2fcbd407">
+				<reportElement x="430" y="0" width="125" height="25" uuid="da53e691-51a2-4049-a814-f9cd2fcbd407">
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 				</reportElement>
@@ -216,7 +220,7 @@
 				<textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER} + " de"]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
-				<reportElement x="530" y="0" width="30" height="28" uuid="ae930a79-a2dd-438a-ae17-19b4cb853c0e">
+				<reportElement x="530" y="0" width="25" height="28" uuid="ae930a79-a2dd-438a-ae17-19b4cb853c0e">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 				</reportElement>
@@ -233,4 +237,55 @@
 			</staticText>
 		</band>
 	</pageFooter>
+	<summary>
+		<band height="56">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<line>
+				<reportElement x="0" y="0" width="555" height="1" uuid="469f0e23-6690-4e62-aac6-0ae4e39773cb">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="3.0" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="360" y="6" width="160" height="25" uuid="bc06c42b-9db0-499c-8fb3-56418efe1774">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total de impressoras:]]></text>
+			</staticText>
+			<textField evaluationTime="Report">
+				<reportElement x="490" y="6" width="65" height="25" uuid="9e481578-356b-4d9b-afd8-cf1695088a9f">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="360" y="31" width="160" height="25" uuid="a85dbe24-8855-4d17-8b76-8f4068932b53">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total geral de impressões:]]></text>
+			</staticText>
+			<textField evaluationTime="Report">
+				<reportElement x="490" y="31" width="65" height="25" uuid="bcffbdd3-3842-4169-87eb-c7a6390c30bc">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{total_geral_impressoes}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
 </jasperReport>
