@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="
     http://www.springframework.org/schema/mvc
     http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
@@ -13,7 +15,8 @@
         http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
 	<!-- Pacote base da aplicação WEB -->
-	<context:component-scan base-package="print.capau" />
+	<context:component-scan
+		base-package="print.capau" />
 
 	<!-- Habilitar anotações no Spring -->
 	<mvc:annotation-driven />
@@ -32,8 +35,10 @@
 	</bean>
 
 	<!-- dados da conexao -->
-	<bean id="mysqlDataSource" class="org.apache.commons.dbcp.BasicDataSource">
-		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+	<bean id="mysqlDataSource"
+		class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName"
+			value="com.mysql.jdbc.Driver" />
 		<property name="url" value="jdbc:mysql://localhost/impressao" />
 		<property name="username" value="root" />
 		<property name="password" value="root" />
@@ -44,16 +49,21 @@
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="dataSource" ref="mysqlDataSource" />
 		<property name="jpaVendorAdapter">
-			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+			<bean
+				class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
 		</property>
 	</bean>
 
 	<!-- gerenciamento da transação pelo spring -->
-	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	<bean id="transactionManager"
+		class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory"
+			ref="entityManagerFactory" />
 	</bean>
 
-	<!-- Registra o interceptador <mvc:interceptors> <bean class="print.capau.interceptor.AutorizadorInterceptor" 
-		/> </mvc:interceptors> -->
+	<!-- Registra o interceptador -->
+	<mvc:interceptors>
+		<bean class="print.capau.interceptor.AutorizadorInterceptor" />
+	</mvc:interceptors>
 
 </beans>
