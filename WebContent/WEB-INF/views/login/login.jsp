@@ -1,4 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://www.springframework.org/security/tags"
+	prefix="security"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -21,16 +23,26 @@
 					<h3 class="panel-title">Login em Print CAPAU</h3>
 				</div>
 				<div class="panel-body">
-					<form role="form" action="efetuaLogin" method="POST">
+					<form action="login" method="POST">
+						<c:if test="${param.error != null}">
+							<p>Usuário e/ou senha inválido.</p>
+						</c:if>
+
+						<c:if test="${param.logout != null}">
+							<p>Logout realizado com sucesso.</p>
+						</c:if>
 
 						<div class="form-group">
-							<label for="usuario">Usuário</label><input class="form-control"
-								name="usuario" MAXLENGTH="50" type="text" required autofocus>
+							<label for="username">Usuário</label> <input class="form-control"
+								id="username" name="username" MAXLENGTH="50" type="text"
+								required autofocus>
 						</div>
 						<div class="form-group">
-							<label for="senha">Senha</label><input class="form-control"
-								name="senha" MAXLENGTH="50" type="password" required>
+							<label for="senha">Senha</label> <input class="form-control"
+								id="password" name="password" MAXLENGTH="50" type="password"
+								required>
 						</div>
+						<security:csrfInput />
 						<button type="submit" class="btn btn-lg btn-success btn-block">Entrar</button>
 					</form>
 

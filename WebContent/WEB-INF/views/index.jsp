@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
 <%@ page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -9,7 +10,11 @@
 
 <div class="jumbotron">
 	<div class="container">
-		<h1>Bem-vindo, ${usuarioLogado.nome}</h1>
+		
+		<security:authorize access="isAuthenticated()">
+			<security:authentication property="principal" var="usuario"/>
+			<h1>Bem-vindo, ${usuario.nome}</h1>
+		</security:authorize>
 		<p>Este é o protótipo do sistema Print Capau que emite relatórios
 			de impressão.</p>
 		<p>OBS.: Para o sistema ter acesso ao relatório de impressão é

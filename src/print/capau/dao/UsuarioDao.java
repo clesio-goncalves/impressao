@@ -6,12 +6,15 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
 
 import print.capau.modelo.Usuario;
 
 @Repository
-public class UsuarioDao {
+public class UsuarioDao implements UserDetailsService {
 
 	private List<Usuario> lista;
 
@@ -61,6 +64,14 @@ public class UsuarioDao {
 		boolean resultado = (lista.size() == 1) ? true : false;
 
 		return resultado;
+	}
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		Usuario usuario = manager.createQuery("select u from Usuario u where u.usuario = :usuario", Usuario.class)
+				.setParameter("usuario", username).getSingleResult();
+
+		return usuario;
 	}
 
 }
