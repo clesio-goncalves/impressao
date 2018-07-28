@@ -29,14 +29,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.permitAll()
 		.and()
 			.logout()
-			.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-			.permitAll();
+			.logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
 	}
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
-		//auth.inMemoryAuthentication().withUser("clesio").password("{noop}clesio").roles("ADMIN");
 	}
 	
 	@Override

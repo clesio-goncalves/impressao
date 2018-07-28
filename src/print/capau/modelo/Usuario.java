@@ -96,20 +96,20 @@ public class Usuario implements UserDetails {
 		this.ativo = ativo;
 	}
 
+	public Perfil getPerfil() {
+		return perfil;
+	}
+
+	public void setPerfil(Perfil perfil) {
+		this.perfil = perfil;
+	}
+
 	public Setor getSetor() {
 		return setor;
 	}
 
 	public void setSetor(Setor setor) {
 		this.setor = setor;
-	}
-
-	public boolean comparaSenhas() {
-		if (this.senha.equals(this.repetir_senha)) {
-			return true;
-		} else {
-			return false;
-		}
 	}
 
 	@Override
@@ -119,12 +119,12 @@ public class Usuario implements UserDetails {
 
 	@Override
 	public String getPassword() {
-		return senha;
+		return this.senha;
 	}
 
 	@Override
 	public String getUsername() {
-		return usuario;
+		return this.usuario;
 	}
 
 	@Override
@@ -144,7 +144,15 @@ public class Usuario implements UserDetails {
 
 	@Override
 	public boolean isEnabled() {
-		return true;
+		return this.ativo;
+	}
+
+	public boolean comparaSenhas() {
+		if (this.senha.equals(this.repetir_senha)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 }

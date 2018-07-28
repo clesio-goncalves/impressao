@@ -11,6 +11,7 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -57,6 +58,9 @@ public class UsuarioController {
 			return "redirect:novoUsuario";
 		}
 
+		// aplica o hash a senha fornecida
+		usuario.setSenha(new BCryptPasswordEncoder().encode(usuario.getSenha()));
+
 		// Adiciona no banco de dados
 		dao.adiciona(usuario);
 		return "redirect:listaUsuarios";
@@ -102,6 +106,9 @@ public class UsuarioController {
 		if (result.hasErrors() || usuario.comparaSenhas() == false) {
 			return "redirect:editaUsuario?id=" + usuario.getId();
 		}
+		
+		// aplica o hash a senha fornecida
+		usuario.setSenha(new BCryptPasswordEncoder().encode(usuario.getSenha()));
 
 		// Altera no banco
 		dao.altera(usuario);
