@@ -6,11 +6,11 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -72,15 +72,15 @@ public class ImpressoraController {
 	}
 
 	@RequestMapping("relatorioImpressora")
-	public void relatorio(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+	public void relatorio(HttpServletRequest request, HttpServletResponse response) {
 
 		String nomeRelatorio = "Relatório de Impressoras";
 		String nomeArquivo = request.getServletContext().getRealPath("/resources/relatorio/impressoras.jasper");
 		Map<String, Object> parametros = new HashMap<String, Object>();
 		JRBeanCollectionDataSource relatorio = new JRBeanCollectionDataSource(lista_impressoras);
 
-		// Pego o usuário da sessão
-		Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
+		// Pego o usuário logado
+		Usuario usuario = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
 		// Parâmetros do relatório
 		parametros.put("imagem_logo",
