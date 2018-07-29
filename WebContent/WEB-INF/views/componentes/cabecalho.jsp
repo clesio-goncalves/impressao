@@ -1,5 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="security"%>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width">
 <link rel="stylesheet" type="text/css"
@@ -27,14 +29,17 @@
 
 			<div class="collapse navbar-collapse" id="navbar">
 				<ul class="nav navbar-nav nav-pills">
-					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown" role="button" aria-expanded="false">Cadastro
-							<span class="caret"></span>
-					</a>
-						<ul class="dropdown-menu" role="menu">
-							<li><a href="novoUsuario">Usuário</a></li>
-							<li><a href="novoSetor">Setor</a></li>
-						</ul></li>
+
+					<security:authorize access="hasRole('ROLE_ADMIN')">
+						<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown" role="button" aria-expanded="false">Cadastro
+								<span class="caret"></span>
+						</a>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="novoUsuario">Usuário</a></li>
+								<li><a href="novoSetor">Setor</a></li>
+							</ul></li>
+					</security:authorize>
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown" role="button" aria-expanded="false">Relatórios
 							<span class="caret"></span>
@@ -46,27 +51,27 @@
 							<li class="divider"></li>
 							<li><a href="listaImpressoes">Impressão</a></li>
 						</ul></li>
-					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown" role="button" aria-expanded="false">Configuração
-							<span class="caret"></span>
-					</a>
-						<ul class="dropdown-menu" role="menu">
-							<li><a href="desativacaoIpv6">Desativação IPv6</a></li>
-							<li class="divider"></li>
-							<li><a href="diretorioLogs">Diretório dos Logs</a></li>
-						</ul></li>
+					<security:authorize access="hasRole('ROLE_ADMIN')">
+						<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown" role="button" aria-expanded="false">Configuração
+								<span class="caret"></span>
+						</a>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="desativacaoIpv6">Desativação IPv6</a></li>
+								<li class="divider"></li>
+								<li><a href="diretorioLogs">Diretório dos Logs</a></li>
+							</ul></li>
+					</security:authorize>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown" role="button" aria-expanded="false">
-						<span class="glyphicon glyphicon-user"></span> 
-						
-						<security:authorize access="isAuthenticated()">
-							<security:authentication property="principal" var="usuario"/>
+						data-toggle="dropdown" role="button" aria-expanded="false"> <span
+							class="glyphicon glyphicon-user"></span> <security:authorize
+								access="isAuthenticated()">
+								<security:authentication property="principal" var="usuario" />
 							${usuario.usuario}
-						</security:authorize>
-						
-						<span class="caret"></span> </a>
+						</security:authorize> <span class="caret"></span>
+					</a>
 						<ul class="dropdown-menu" role="menu">
 							<li><a href="#">Perfil</a></li>
 							<li class="divider"></li>

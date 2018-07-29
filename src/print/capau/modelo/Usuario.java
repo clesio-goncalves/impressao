@@ -1,13 +1,15 @@
 package print.capau.modelo;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
@@ -41,12 +43,11 @@ public class Usuario implements UserDetails {
 	private boolean ativo;
 
 	@NotNull
-	@Enumerated(EnumType.STRING)
-	private Perfil perfil;
-
-	@NotNull
 	@ManyToOne
 	private Setor setor;
+
+	@ManyToMany(fetch = FetchType.EAGER)
+	private List<Permissao> permissao = new ArrayList<>();
 
 	public Long getId() {
 		return id;
@@ -96,14 +97,6 @@ public class Usuario implements UserDetails {
 		this.ativo = ativo;
 	}
 
-	public Perfil getPerfil() {
-		return perfil;
-	}
-
-	public void setPerfil(Perfil perfil) {
-		this.perfil = perfil;
-	}
-
 	public Setor getSetor() {
 		return setor;
 	}
@@ -112,9 +105,17 @@ public class Usuario implements UserDetails {
 		this.setor = setor;
 	}
 
+	public List<Permissao> getPermissao() {
+		return permissao;
+	}
+
+	public void setPermissao(List<Permissao> permissao) {
+		this.permissao = permissao;
+	}
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return null;
+		return this.permissao;
 	}
 
 	@Override

@@ -6,7 +6,7 @@ public class Teste {
 	
 	public static void main(String[] args) {
 		
-		String senha = new BCryptPasswordEncoder().encode("123");
+		String senha = new BCryptPasswordEncoder().encode("thalita");
 		System.out.println(senha);
 	}
 

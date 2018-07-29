@@ -25,11 +25,11 @@
 				<div class="panel-body">
 					<form action="login" method="POST">
 						<c:if test="${param.error != null}">
-							<div>Usuário e/ou senha inválido.</div>
+							<p>Usuário e/ou senha inválido.</p>
 						</c:if>
 
 						<c:if test="${param.logout != null}">
-							<div>Logout realizado com sucesso.</div>
+							<p>Logout realizado com sucesso.</p>
 						</c:if>
 
 						<div class="form-group">

@@ -1,4 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="security"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -52,41 +54,48 @@
 								<td>
 									<!-- Exibir --> <a href="exibeUsuario?id=${usuario.id}"
 									class="btn btn-success btn-xs"><span
-										class="glyphicon glyphicon-zoom-in"></span> Exibir</a> <!-- Editar -->
-									<a href="editaUsuario?id=${usuario.id}"
-									class="btn btn-info btn-xs"><span
-										class="glyphicon glyphicon-edit"></span> Editar </a> <!-- Botão exluir -->
-									<button class="btn btn-danger btn-xs" data-toggle="modal"
-										data-target="#${usuario.id}">
-										<span class="glyphicon glyphicon-trash"></span> Excluir
-									</button> <!-- Modal -->
-									<div class="modal fade" id="${usuario.id}" tabindex="-1"
-										role="dialog" aria-labelledby="myModalLabel"
-										aria-hidden="true">
-										<div class="modal-dialog">
-											<div class="modal-content">
-												<div class="modal-header">
-													<button type="button" class="close" data-dismiss="modal">
-														<span aria-hidden="true">&times;</span><span
-															class="sr-only">Fechar</span>
-													</button>
-													<h4 class="modal-title" id="myModalLabel">Exclusão do
-														usuário</h4>
-												</div>
-												<div class="modal-body">Deseja realmente excluir o
-													usuário (${usuario.id}) -> ${usuario.nome}?</div>
-												<div class="modal-footer">
-													<button type="button" class="btn btn-default"
-														data-dismiss="modal">
-														<span class="glyphicon glyphicon-log-out"></span> Fechar
-													</button>
-													<a href="removeUsuario?id=${usuario.id}"
-														class="btn btn-danger"><span
-														class="glyphicon glyphicon-trash"></span> Excluir</a>
+										class="glyphicon glyphicon-zoom-in"></span> Exibir</a> 
+										
+									<security:authorize access="hasRole('ROLE_ADMIN')">
+										
+										<!-- Editar -->
+										<a href="editaUsuario?id=${usuario.id}"
+											class="btn btn-info btn-xs"><span
+											class="glyphicon glyphicon-edit"></span> Editar </a>
+										<!-- Botão exluir -->
+										<button class="btn btn-danger btn-xs" data-toggle="modal"
+											data-target="#${usuario.id}">
+											<span class="glyphicon glyphicon-trash"></span> Excluir
+										</button>
+										<!-- Modal -->
+										<div class="modal fade" id="${usuario.id}" tabindex="-1"
+											role="dialog" aria-labelledby="myModalLabel"
+											aria-hidden="true">
+											<div class="modal-dialog">
+												<div class="modal-content">
+													<div class="modal-header">
+														<button type="button" class="close" data-dismiss="modal">
+															<span aria-hidden="true">&times;</span><span
+																class="sr-only">Fechar</span>
+														</button>
+														<h4 class="modal-title" id="myModalLabel">Exclusão do
+															usuário</h4>
+													</div>
+													<div class="modal-body">Deseja realmente excluir o
+														usuário (${usuario.id}) -> ${usuario.nome}?</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-default"
+															data-dismiss="modal">
+															<span class="glyphicon glyphicon-log-out"></span> Fechar
+														</button>
+														<a href="removeUsuario?id=${usuario.id}"
+															class="btn btn-danger"><span
+															class="glyphicon glyphicon-trash"></span> Excluir</a>
+													</div>
 												</div>
 											</div>
 										</div>
-									</div>
+									</security:authorize>
 								</td>
 							</tr>
 						</c:forEach>
@@ -98,8 +107,10 @@
 	</div>
 
 	<div align="center">
-		<a href="novoUsuario" class="btn btn-primary btn-lg"><span
-			class="glyphicon glyphicon-plus"></span> Cadastrar</a>
+		<security:authorize access="hasRole('ROLE_ADMIN')">
+			<a href="novoUsuario" class="btn btn-primary btn-lg"><span
+				class="glyphicon glyphicon-plus"></span> Cadastrar</a>
+		</security:authorize>
 		<!-- PDF -->
 		<a href="relatorioUsuario" class="btn btn-danger btn-lg"><span
 			class="glyphicon glyphicon-file"></span> Relatório PDF</a>

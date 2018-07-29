@@ -21,6 +21,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.
 			authorizeRequests()
+			.antMatchers("/diretorioLogs").hasRole("ADMIN")
+			.antMatchers("/adicionaDiretorioLogs").hasRole("ADMIN")
+			.antMatchers("/alteraDiretorioLogs").hasRole("ADMIN")
+			.antMatchers("/desativacaoIpv6").hasRole("ADMIN")
+			.antMatchers("/novoSetor").hasRole("ADMIN")
+			.antMatchers("/adicionaSetor").hasRole("ADMIN")
+			.antMatchers("/removeSetor").hasRole("ADMIN")
+			.antMatchers("/editaSetor").hasRole("ADMIN")
+			.antMatchers("/alteraSetor").hasRole("ADMIN")
+			.antMatchers("/novoUsuario").hasRole("ADMIN")
+			.antMatchers("/adicionaUsuario").hasRole("ADMIN")
+			.antMatchers("/removeUsuario").hasRole("ADMIN")
+			.antMatchers("/editaUsuario").hasRole("ADMIN")
+			.antMatchers("/alteraUsuario").hasRole("ADMIN")
 			.anyRequest()
 			.authenticated()
 		.and()
@@ -29,7 +43,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.permitAll()
 		.and()
 			.logout()
-			.logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
+			.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+			.permitAll();
 	}
 	
 	@Override

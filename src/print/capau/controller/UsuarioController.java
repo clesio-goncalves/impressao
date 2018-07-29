@@ -10,6 +10,7 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -20,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import print.capau.dao.SetorDao;
 import print.capau.dao.UsuarioDao;
-import print.capau.modelo.Perfil;
 import print.capau.modelo.Usuario;
 import print.capau.relatorio.GeradorRelatorio;
 
@@ -36,6 +36,7 @@ public class UsuarioController {
 	@Autowired
 	SetorDao dao_setor;
 
+	@Secured("hasRole('ROLE_ADMIN')")
 	@RequestMapping("novoUsuario")
 	public String novoUsuario(Model model) {
 
@@ -44,13 +45,14 @@ public class UsuarioController {
 			return "redirect:novoSetor";
 		} else {
 			// Adiciona os setores a lista
-			model.addAttribute("perfis", Perfil.values());
+			model.addAttribute("perfis", null);
 			model.addAttribute("setores", dao_setor.lista());
 		}
 
 		return "usuario/novo";
 	}
 
+	@Secured("hasRole('ROLE_ADMIN')")
 	@RequestMapping("adicionaUsuario")
 	public String adiciona(@Valid Usuario usuario, BindingResult result) {
 
@@ -73,6 +75,7 @@ public class UsuarioController {
 		return "usuario/lista";
 	}
 
+	@Secured("hasRole('ROLE_ADMIN')")
 	@RequestMapping("removeUsuario")
 	public String remove(Usuario usuario) {
 		dao.remove(usuario);
@@ -85,6 +88,7 @@ public class UsuarioController {
 		return "usuario/exibe";
 	}
 
+	@Secured("hasRole('ROLE_ADMIN')")
 	@RequestMapping("editaUsuario")
 	public String edita(Long id, Model model) {
 
@@ -94,12 +98,13 @@ public class UsuarioController {
 		} else {
 			// Adiciona os setores a lista
 			model.addAttribute("usuario", dao.buscaPorId(id));
-			model.addAttribute("perfis", Perfil.values());
+			model.addAttribute("perfis", null);
 			model.addAttribute("setores", dao_setor.lista());
 			return "usuario/edita";
 		}
 	}
 
+	@Secured("hasRole('ROLE_ADMIN')")
 	@RequestMapping("alteraUsuario")
 	public String altera(@Valid Usuario usuario, BindingResult result) {
 

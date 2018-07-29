@@ -10,6 +10,7 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,11 +32,13 @@ public class SetorController {
 	@Autowired
 	SetorDao dao;
 
+	@Secured("hasRole('ROLE_ADMIN')")
 	@RequestMapping("novoSetor")
 	public String setor() {
 		return "setor/novo";
 	}
 
+	@Secured("hasRole('ROLE_ADMIN')")
 	@RequestMapping("adicionaSetor")
 	public String adiciona(@Valid Setor setor, BindingResult result) {
 
@@ -55,6 +58,7 @@ public class SetorController {
 		return "setor/lista";
 	}
 
+	@Secured("hasRole('ROLE_ADMIN')")
 	@RequestMapping("removeSetor")
 	public String remove(Setor setor) {
 		dao.remove(setor);
@@ -67,12 +71,14 @@ public class SetorController {
 		return "setor/exibe";
 	}
 
+	@Secured("hasRole('ROLE_ADMIN')")
 	@RequestMapping("editaSetor")
 	public String edita(Long id, Model model) {
 		model.addAttribute("setor", dao.buscaPorId(id));
 		return "setor/edita";
 	}
 
+	@Secured("hasRole('ROLE_ADMIN')")
 	@RequestMapping("alteraSetor")
 	public String altera(@Valid Setor setor, BindingResult result) {
 

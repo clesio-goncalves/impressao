@@ -4,6 +4,7 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,6 +24,7 @@ public class ConfiguracaoController {
 	@Autowired
 	ImpressaoDao dao_impressao;
 
+	@Secured("hasRole('ROLE_ADMIN')")
 	@RequestMapping("diretorioLogs")
 	public String diretorioLogs(Model model) {
 
@@ -35,6 +37,7 @@ public class ConfiguracaoController {
 		}
 	}
 
+	@Secured("hasRole('ROLE_ADMIN')")
 	@RequestMapping("adicionaDiretorioLogs")
 	public String adiciona(@Valid Configuracao configuracao, BindingResult result) {
 
@@ -47,6 +50,7 @@ public class ConfiguracaoController {
 		return "redirect:diretorioLogs";
 	}
 
+	@Secured("hasRole('ROLE_ADMIN')")
 	@RequestMapping("alteraDiretorioLogs")
 	public String altera(@Valid Configuracao configuracao, BindingResult result) {
 
@@ -59,6 +63,7 @@ public class ConfiguracaoController {
 		return "redirect:diretorioLogs";
 	}
 
+	@Secured("hasRole('ROLE_ADMIN')")
 	@RequestMapping("desativacaoIpv6")
 	public String desativacaoIpv6(Model model) {
 
