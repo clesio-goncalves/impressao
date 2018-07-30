@@ -22,13 +22,13 @@ public class ImpressaoDao {
 	}
 
 	public List<Impressao> lista() {
-		return manager.createQuery("select i from Impressao as i order by i.data desc").getResultList();
+		return manager.createQuery("select i from Impressao as i order by i.data desc", Impressao.class).getResultList();
 	}
 
 	public List<Impressao> desativacaoIpv6() {
 		return manager
 				.createQuery(
-						"select i from Impressao as i where i.estacao.nome not like 'CAPAU-%' order by i.data desc")
+						"select i from Impressao as i where i.estacao.nome not like 'CAPAU-%' order by i.data desc", Impressao.class)
 				.getResultList();
 	}
 

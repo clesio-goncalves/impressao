@@ -22,7 +22,7 @@ public class UsuarioPCDao {
 	}
 
 	public List<UsuarioPC> lista() {
-		return manager.createQuery("select u from UsuarioPC as u").getResultList();
+		return manager.createQuery("select u from UsuarioPC as u", UsuarioPC.class).getResultList();
 	}
 
 	public List<UsuarioPC> buscaUsuario(UsuarioPC usuarioPC) {

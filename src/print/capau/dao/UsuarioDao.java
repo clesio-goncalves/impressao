@@ -29,7 +29,7 @@ public class UsuarioDao implements UserDetailsService {
 	}
 
 	public List<Usuario> lista() {
-		return manager.createQuery("select u from Usuario u").getResultList();
+		return manager.createQuery("select u from Usuario u", Usuario.class).getResultList();
 	}
 
 	public Usuario buscaPorId(Long id) {

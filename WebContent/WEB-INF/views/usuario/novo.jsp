@@ -54,13 +54,13 @@
 			</select>
 		</div>
 
-		<!-- PERFIL -->
+		<!-- PERMISSÃO -->
 		<div class="form-group">
-			<label for="perfil">Perfil*</label>
-			<c:forEach var="perfil" items="${perfis}">
+			<label for="permissao">Permissão*</label>
+			<c:forEach var="permissao" items="${permissoes}">
 				<div class="radio">
-					<label> <input type="radio" name="perfil" value="${perfil}"
-						checked="checked">${perfil}
+					<label> <input type="radio" name="permissao" value="${permissao.id}"
+						checked="checked">${permissao.nome}
 					</label>
 				</div>
 			</c:forEach>

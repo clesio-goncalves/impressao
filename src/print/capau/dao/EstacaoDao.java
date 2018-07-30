@@ -22,7 +22,7 @@ public class EstacaoDao {
 	}
 
 	public List<Estacao> lista() {
-		return manager.createQuery("select e from Estacao as e").getResultList();
+		return manager.createQuery("select e from Estacao as e", Estacao.class).getResultList();
 	}
 
 	public List<Estacao> buscaIdPeloNome(String nome) {

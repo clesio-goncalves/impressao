@@ -7,6 +7,7 @@ import javax.persistence.PersistenceContext;
 
 import org.springframework.stereotype.Repository;
 
+import print.capau.modelo.Impressao;
 import print.capau.modelo.Impressora;
 
 @Repository
@@ -30,7 +31,7 @@ public class ImpressoraDao {
 	}
 
 	public List<Impressora> lista() {
-		return manager.createQuery("select i from Impressora as i").getResultList();
+		return manager.createQuery("select i from Impressora as i", Impressora.class).getResultList();
 	}
 
 	public List<Impressora> buscaIdPeloNome(String nome) {

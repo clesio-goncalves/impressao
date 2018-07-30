@@ -20,6 +20,9 @@ values (1, 'ROLE_ADMIN');
 insert into Permissao (id, nome)
 values (2, 'ROLE_COORDENADOR');
 
+insert into Permissao (id, nome)
+values (3, 'ROLE_GERENTE');
+
 insert into Usuario_Permissao (usuario_id, permissao_id)
 values (1,1);
 

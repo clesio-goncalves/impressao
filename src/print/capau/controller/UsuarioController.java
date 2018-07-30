@@ -19,8 +19,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import print.capau.dao.PermissaoDao;
 import print.capau.dao.SetorDao;
 import print.capau.dao.UsuarioDao;
+import print.capau.modelo.Permissao;
 import print.capau.modelo.Usuario;
 import print.capau.relatorio.GeradorRelatorio;
 
@@ -36,6 +38,9 @@ public class UsuarioController {
 	@Autowired
 	SetorDao dao_setor;
 
+	@Autowired
+	PermissaoDao dao_permissao;
+
 	@Secured("hasRole('ROLE_ADMIN')")
 	@RequestMapping("novoUsuario")
 	public String novoUsuario(Model model) {
@@ -43,9 +48,26 @@ public class UsuarioController {
 		// Testa se há setores cadastrados
 		if (dao_setor.lista().size() == 0) {
 			return "redirect:novoSetor";
+			
+			// ADICIONA AS PEMISSOES CASO NÃO ESTEJA CADASTRADA
+		} else if (dao_permissao.lista().size() == 0) {
+			Permissao permissao = new Permissao();
+
+			// ROLE_ADMIN
+			permissao.setNome("ROLE_ADMIN");
+			dao_permissao.adiciona(permissao);
+
+			// ROLE_GERENTE
+			permissao.setNome("ROLE_GERENTE");
+			dao_permissao.adiciona(permissao);
+			
+			// ROLE_COORD
+			permissao.setNome("ROLE_COORDENADOR");
+			dao_permissao.adiciona(permissao);
+
 		} else {
 			// Adiciona os setores a lista
-			model.addAttribute("perfis", null);
+			model.addAttribute("permissoes", dao_permissao.lista());
 			model.addAttribute("setores", dao_setor.lista());
 		}
 
