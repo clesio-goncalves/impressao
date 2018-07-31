@@ -67,13 +67,6 @@
 					</label>
 				</div>
 			</c:forEach>
-
-			<div class="custom-control custom-radio">
-				<input type="radio" id="customRadio3" name="customRadio"
-					class="custom-control-input" disabled=""> <label
-					class="custom-control-label" for="customRadio3">Disabled
-					custom radio</label>
-			</div>
 		</div>
 
 		<!-- ATIVO -->

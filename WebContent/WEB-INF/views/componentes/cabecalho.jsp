@@ -63,21 +63,23 @@
 							</ul></li>
 					</security:authorize>
 				</ul>
-				<ul class="nav navbar-nav navbar-right">
-					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown" role="button" aria-expanded="false"> <span
-							class="glyphicon glyphicon-user"></span> <security:authorize
-								access="isAuthenticated()">
-								<security:authentication property="principal" var="usuario" />
-							${usuario.usuario}
-						</security:authorize> <span class="caret"></span>
-					</a>
-						<ul class="dropdown-menu" role="menu">
-							<li><a href="#">Perfil</a></li>
-							<li class="divider"></li>
-							<li><a href="logout">Sair</a></li>
-						</ul></li>
-				</ul>
+				<security:authorize access="isAuthenticated()">
+					<ul class="nav navbar-nav navbar-right">
+						<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown" role="button" aria-expanded="false"> <span
+								class="glyphicon glyphicon-user"></span> <security:authentication
+									property="principal" var="user" /> ${user.usuario} <span
+								class="caret"></span>
+						</a>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="exibeUsuario?id=${user.id}"><span
+										class="glyphicon glyphicon-info-sign"></span> Perfil</a></li>
+								<li class="divider"></li>
+								<li><a href="logout"><span
+										class="glyphicon glyphicon-log-out"></span> Sair</a></li>
+							</ul></li>
+					</ul>
+				</security:authorize>
 			</div>
 		</div>
 	</nav>

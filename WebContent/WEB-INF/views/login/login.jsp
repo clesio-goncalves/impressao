@@ -26,15 +26,16 @@
 					<form action="login" method="POST">
 						<c:if test="${param.error != null}">
 							<div class="alert alert-dismissible alert-danger">
-							  	<button type="button" class="close" data-dismiss="alert">&times;</button>
-							  	<strong>Erro!</strong> Usuário e/ou senha inválido. Ou usuário inativo.
+								<button type="button" class="close" data-dismiss="alert">&times;</button>
+								<strong>Erro!</strong> Usuário e/ou senha inválido. Ou usuário
+								inativo.
 							</div>
 						</c:if>
 
 						<c:if test="${param.logout != null}">
-							<div class="alert alert-dismissible alert-success">
-							  	<button type="button" class="close" data-dismiss="alert">&times;</button>
-							  	<strong>Volte sempre!</strong> Logout realizado com sucesso.
+							<div class="alert alert-dismissible alert-info">
+								<button type="button" class="close" data-dismiss="alert">&times;</button>
+								<strong>Volte sempre!</strong> Logout realizado com sucesso.
 							</div>
 						</c:if>
 
@@ -47,6 +48,10 @@
 							<label for="senha">Senha</label> <input class="form-control"
 								id="password" name="password" MAXLENGTH="50" type="password"
 								required>
+						</div>
+						<div class="form-group">
+							<input type="checkbox" id="remember-me" name="remember-me" />
+							<label for="remember-me">Lembrar-me</label>
 						</div>
 						<security:csrfInput />
 						<button type="submit" class="btn btn-lg btn-success btn-block">Entrar</button>
