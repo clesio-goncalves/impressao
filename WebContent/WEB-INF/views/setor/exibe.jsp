@@ -28,7 +28,7 @@
 			</div>
 		</div>
 	</div>
-	<security:authorize access="hasRole('ROLE_ADMIN')">
+	<security:authorize access="hasRole('ROLE_Administrador')">
 		<div align="center">
 			<!-- Cadastrar -->
 			<a href="novoSetor" class="btn btn-primary btn-lg"><span

@@ -1,6 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://www.springframework.org/security/tags" prefix="security" %>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="UTF-8"%>
+<%@taglib uri="http://www.springframework.org/security/tags"
+	prefix="security"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -56,14 +58,22 @@
 
 		<!-- PERMISSÃO -->
 		<div class="form-group">
-			<label for="permissao">Permissão*</label>
+			<label for="permissao.id">Permissão*</label>
 			<c:forEach var="permissao" items="${permissoes}">
 				<div class="radio">
-					<label> <input type="radio" name="permissao" value="${permissao.id}"
-						checked="checked">${permissao.nome}
+					<label> <input type="radio" name="permissao.id"
+						value="${permissao.id}" checked="checked">
+						${permissao.nome}
 					</label>
 				</div>
 			</c:forEach>
+
+			<div class="custom-control custom-radio">
+				<input type="radio" id="customRadio3" name="customRadio"
+					class="custom-control-input" disabled=""> <label
+					class="custom-control-label" for="customRadio3">Disabled
+					custom radio</label>
+			</div>
 		</div>
 
 		<!-- ATIVO -->
@@ -74,8 +84,8 @@
 				</label>
 			</div>
 		</div>
-		
-		<security:csrfInput/>
+
+		<security:csrfInput />
 
 		<!-- OBTIGATÓRIO -->
 		<label for="obrigatorio">(*) Campos obrigatórios</label>

@@ -30,7 +30,7 @@
 			<div class="collapse navbar-collapse" id="navbar">
 				<ul class="nav navbar-nav nav-pills">
 
-					<security:authorize access="hasRole('ROLE_ADMIN')">
+					<security:authorize access="hasRole('ROLE_Administrador')">
 						<li class="dropdown"><a href="#" class="dropdown-toggle"
 							data-toggle="dropdown" role="button" aria-expanded="false">Cadastro
 								<span class="caret"></span>
@@ -51,7 +51,7 @@
 							<li class="divider"></li>
 							<li><a href="listaImpressoes">Impressão</a></li>
 						</ul></li>
-					<security:authorize access="hasRole('ROLE_ADMIN')">
+					<security:authorize access="hasRole('ROLE_Administrador')">
 						<li class="dropdown"><a href="#" class="dropdown-toggle"
 							data-toggle="dropdown" role="button" aria-expanded="false">Configuração
 								<span class="caret"></span>

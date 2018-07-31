@@ -21,7 +21,7 @@
 	<field name="id" class="java.lang.Long"/>
 	<field name="nome" class="java.lang.String"/>
 	<field name="usuario" class="java.lang.String"/>
-	<field name="perfil" class="java.lang.Enum"/>
+	<field name="permissao.nome" class="java.lang.String"/>
 	<field name="ativo" class="java.lang.Boolean"/>
 	<field name="setor.nome" class="java.lang.String"/>
 	<background>
@@ -121,7 +121,7 @@
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Perfil]]></text>
+				<text><![CDATA[Permissão]]></text>
 			</staticText>
 			<line>
 				<reportElement x="0" y="0" width="803" height="1" uuid="d215d496-d2cd-49dd-9fec-b6cd14f44652">
@@ -231,7 +231,7 @@
 				<textElement verticalAlignment="Middle">
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{perfil}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{permissao.nome}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

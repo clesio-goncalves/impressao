@@ -1,15 +1,13 @@
 package print.capau.modelo;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
@@ -46,8 +44,9 @@ public class Usuario implements UserDetails {
 	@ManyToOne
 	private Setor setor;
 
-	@ManyToMany(fetch = FetchType.EAGER)
-	private List<Permissao> permissao = new ArrayList<>();
+	@NotNull
+	@ManyToOne
+	private Permissao permissao;
 
 	public Long getId() {
 		return id;
@@ -105,17 +104,28 @@ public class Usuario implements UserDetails {
 		this.setor = setor;
 	}
 
-	public List<Permissao> getPermissao() {
+	public Permissao getPermissao() {
 		return permissao;
 	}
 
-	public void setPermissao(List<Permissao> permissao) {
+	public void setPermissao(Permissao permissao) {
 		this.permissao = permissao;
 	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return this.permissao;
+
+		Set<Permissao> permissoes = new HashSet<>();
+		
+		System.out.println("Permissao antes: " + this.permissao.getNome());
+
+		this.permissao.setNome("ROLE_" + this.permissao.getNome());
+		
+		System.out.println("Permissao depois: " + this.permissao.getNome());
+
+		permissoes.add(this.permissao);
+
+		return permissoes;
 	}
 
 	@Override

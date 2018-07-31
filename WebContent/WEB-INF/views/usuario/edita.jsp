@@ -37,15 +37,14 @@
 		<!-- SENHA -->
 		<div class="form-group">
 			<label for="senha">Senha*</label> <input type="password"
-				class="form-control" name="senha" id="senha" MAXLENGTH="20" required
-				value="${usuario.senha}">
+				class="form-control" name="senha" id="senha" MAXLENGTH="20" required>
 		</div>
 
 		<!-- REPETIR SENHA -->
 		<div class="form-group">
 			<label for="repetir_senha">Repetir Senha*</label> <input
 				type="password" class="form-control" name="repetir_senha"
-				id="repetir_senha" MAXLENGTH="20" required value="${usuario.senha}">
+				id="repetir_senha" MAXLENGTH="20" required>
 		</div>
 
 		<!-- SETOR -->
@@ -59,15 +58,13 @@
 				</c:forEach>
 			</select>
 		</div>
-
-		<!-- PERFIL -->
+		
+		<!-- PERMISSÃO -->
 		<div class="form-group">
-			<label for="perfil">Perfil*</label>
-			<c:forEach var="perfil" items="${perfis}">
+			<label for="permissao.id">Permissão*</label>
+			<c:forEach var="permissao" items="${permissoes}">
 				<div class="radio">
-					<label> <input type="radio" name="perfil" value="${perfil}"
-						${perfil eq usuario.perfil ? 'checked' : ''}>${perfil}
-					</label>
+					<label> <input type="radio" name="permissao.id" value="${permissao.id}" ${permissao.id == usuario.permissao.id ? 'checked' : ''}> ${permissao.nome} </label>
 				</div>
 			</c:forEach>
 		</div>

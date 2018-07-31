@@ -39,7 +39,7 @@
 									<!-- Exibir --> <a href="exibeSetor?id=${setor.id}"
 									class="btn btn-success btn-xs"><span
 										class="glyphicon glyphicon-zoom-in"></span> Exibir</a> 
-									<security:authorize access="hasRole('ROLE_ADMIN')">
+									<security:authorize access="hasRole('ROLE_Administrador')">
 										<!-- Editar -->
 										<a href="editaSetor?id=${setor.id}"
 											class="btn btn-info btn-xs"><span
@@ -63,8 +63,9 @@
 														<h4 class="modal-title" id="myModalLabel">Exclusão do
 															setor</h4>
 													</div>
-													<div class="modal-body">Deseja realmente excluir o
-														setor (${setor.id}) -> ${setor.nome}?</div>
+													<div class="modal-body">
+													<strong>A exclusão não é permitida caso haja usuário vinculado a este setor</strong> <br>
+													Deseja realmente excluir o setor (${setor.id}) -> ${setor.nome}?</div>
 													<div class="modal-footer">
 														<button type="button" class="btn btn-default"
 															data-dismiss="modal">
@@ -88,7 +89,7 @@
 		</div>
 	</div>
 	<div align="center">
-		<security:authorize access="hasRole('ROLE_ADMIN')">
+		<security:authorize access="hasRole('ROLE_Administrador')">
 			<a href="novoSetor" class="btn btn-primary btn-lg"><span
 				class="glyphicon glyphicon-plus"></span> Cadastrar</a>
 		</security:authorize>

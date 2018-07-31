@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import print.capau.dao.SetorDao;
+import print.capau.dao.UsuarioDao;
 import print.capau.modelo.Setor;
 import print.capau.modelo.Usuario;
 import print.capau.relatorio.GeradorRelatorio;
@@ -32,13 +33,16 @@ public class SetorController {
 	@Autowired
 	SetorDao dao;
 
-	@Secured("hasRole('ROLE_ADMIN')")
+	@Autowired
+	UsuarioDao dao_usuario;
+
+	@Secured("hasRole('ROLE_Administrador')")
 	@RequestMapping("novoSetor")
 	public String setor() {
 		return "setor/novo";
 	}
 
-	@Secured("hasRole('ROLE_ADMIN')")
+	@Secured("hasRole('ROLE_Administrador')")
 	@RequestMapping("adicionaSetor")
 	public String adiciona(@Valid Setor setor, BindingResult result) {
 
@@ -58,9 +62,15 @@ public class SetorController {
 		return "setor/lista";
 	}
 
-	@Secured("hasRole('ROLE_ADMIN')")
+	@Secured("hasRole('ROLE_Administrador')")
 	@RequestMapping("removeSetor")
 	public String remove(Setor setor) {
+
+		// Remove o setor caso não haja usuários cadastrados nesse setor
+		if (dao_usuario.buscaUsuarioPorSetor(setor.getId()).size() > 0) {
+			return "redirect:listaSetores";
+		}
+
 		dao.remove(setor);
 		return "redirect:listaSetores";
 	}
@@ -71,14 +81,14 @@ public class SetorController {
 		return "setor/exibe";
 	}
 
-	@Secured("hasRole('ROLE_ADMIN')")
+	@Secured("hasRole('ROLE_Administrador')")
 	@RequestMapping("editaSetor")
 	public String edita(Long id, Model model) {
 		model.addAttribute("setor", dao.buscaPorId(id));
 		return "setor/edita";
 	}
 
-	@Secured("hasRole('ROLE_ADMIN')")
+	@Secured("hasRole('ROLE_Administrador')")
 	@RequestMapping("alteraSetor")
 	public String altera(@Valid Setor setor, BindingResult result) {
 

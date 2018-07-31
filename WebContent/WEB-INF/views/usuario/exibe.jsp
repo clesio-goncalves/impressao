@@ -41,8 +41,8 @@
 						</c:if>
 					</tr>
 					<tr>
-						<th>Perfil</th>
-						<td>${usuario.perfil}</td>
+						<th>Permissão</th>
+						<td>${usuario.permissao.nome}</td>
 					</tr>
 					<tr>
 						<th>Setor</th>
@@ -52,7 +52,7 @@
 			</div>
 		</div>
 	</div>
-	<security:authorize access="hasRole('ROLE_ADMIN')">
+	<security:authorize access="hasRole('ROLE_Administrador')">
 		<div align="center">
 			<!-- Cadastrar -->
 			<a href="novoUsuario" class="btn btn-primary btn-lg"><span

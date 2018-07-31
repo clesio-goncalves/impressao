@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
 
+import print.capau.modelo.Impressao;
 import print.capau.modelo.Usuario;
 
 @Repository
@@ -44,6 +45,11 @@ public class UsuarioDao implements UserDetailsService {
 	public void remove(Usuario usuario) {
 		Usuario usuarioARemover = buscaPorId(usuario.getId());
 		manager.remove(usuarioARemover);
+	}
+
+	public List<Usuario> buscaUsuarioPorSetor(Long id) {
+		return manager.createQuery("select u from Usuario as u where u.setor.id = :idSetor", Usuario.class)
+				.setParameter("idSetor", id).getResultList();
 	}
 
 //	public boolean existeUsuario(Usuario usuario) {

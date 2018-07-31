@@ -26,7 +26,7 @@
 							<th>Nome Completo</th>
 							<th>Usuário</th>
 							<th>Ativo</th>
-							<th>Perfil</th>
+							<th>Permissão</th>
 							<th>Setor</th>
 							<th>Ações</th>
 						</tr>
@@ -47,7 +47,7 @@
 									<td>Não</td>
 								</c:if>
 
-								<td>${usuario.perfil}</td>
+								<td>${usuario.permissao.nome}</td>
 								<td>${usuario.setor.nome}</td>
 
 								<!-- AÇÕES -->
@@ -56,7 +56,7 @@
 									class="btn btn-success btn-xs"><span
 										class="glyphicon glyphicon-zoom-in"></span> Exibir</a> 
 										
-									<security:authorize access="hasRole('ROLE_ADMIN')">
+									<security:authorize access="hasRole('ROLE_Administrador')">
 										
 										<!-- Editar -->
 										<a href="editaUsuario?id=${usuario.id}"
@@ -107,7 +107,7 @@
 	</div>
 
 	<div align="center">
-		<security:authorize access="hasRole('ROLE_ADMIN')">
+		<security:authorize access="hasRole('ROLE_Administrador')">
 			<a href="novoUsuario" class="btn btn-primary btn-lg"><span
 				class="glyphicon glyphicon-plus"></span> Cadastrar</a>
 		</security:authorize>

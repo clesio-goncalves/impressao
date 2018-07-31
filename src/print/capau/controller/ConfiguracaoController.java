@@ -24,7 +24,7 @@ public class ConfiguracaoController {
 	@Autowired
 	ImpressaoDao dao_impressao;
 
-	@Secured("hasRole('ROLE_ADMIN')")
+	@Secured("hasRole('ROLE_Administrador')")
 	@RequestMapping("diretorioLogs")
 	public String diretorioLogs(Model model) {
 
@@ -37,7 +37,7 @@ public class ConfiguracaoController {
 		}
 	}
 
-	@Secured("hasRole('ROLE_ADMIN')")
+	@Secured("hasRole('ROLE_Administrador')")
 	@RequestMapping("adicionaDiretorioLogs")
 	public String adiciona(@Valid Configuracao configuracao, BindingResult result) {
 
@@ -50,7 +50,7 @@ public class ConfiguracaoController {
 		return "redirect:diretorioLogs";
 	}
 
-	@Secured("hasRole('ROLE_ADMIN')")
+	@Secured("hasRole('ROLE_Administrador')")
 	@RequestMapping("alteraDiretorioLogs")
 	public String altera(@Valid Configuracao configuracao, BindingResult result) {
 
@@ -63,7 +63,7 @@ public class ConfiguracaoController {
 		return "redirect:diretorioLogs";
 	}
 
-	@Secured("hasRole('ROLE_ADMIN')")
+	@Secured("hasRole('ROLE_Administrador')")
 	@RequestMapping("desativacaoIpv6")
 	public String desativacaoIpv6(Model model) {
 

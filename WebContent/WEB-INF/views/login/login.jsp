@@ -25,11 +25,17 @@
 				<div class="panel-body">
 					<form action="login" method="POST">
 						<c:if test="${param.error != null}">
-							<p>Usuário e/ou senha inválido.</p>
+							<div class="alert alert-dismissible alert-danger">
+							  	<button type="button" class="close" data-dismiss="alert">&times;</button>
+							  	<strong>Erro!</strong> Usuário e/ou senha inválido. Ou usuário inativo.
+							</div>
 						</c:if>
 
 						<c:if test="${param.logout != null}">
-							<p>Logout realizado com sucesso.</p>
+							<div class="alert alert-dismissible alert-success">
+							  	<button type="button" class="close" data-dismiss="alert">&times;</button>
+							  	<strong>Volte sempre!</strong> Logout realizado com sucesso.
+							</div>
 						</c:if>
 
 						<div class="form-group">
